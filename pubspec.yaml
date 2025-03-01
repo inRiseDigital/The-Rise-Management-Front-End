@@ -38,6 +38,11 @@ dependencies:
   fl_chart: ^0.65.0
   percent_indicator: ^4.2.2
   provider: ^6.0.0
+  http: ^1.1.0  # Use the latest version
+
+
+
+
 
 
   
@@ -68,6 +73,7 @@ flutter:
   assets:
     - lib/assets/images/RiseLogo.png
     - lib/assets/images/ayubowan.png
+    
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

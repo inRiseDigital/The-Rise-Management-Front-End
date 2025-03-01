@@ -1,5 +1,7 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/screens/finance.dart';
+// import 'package:provider/provider.dart';
+// import '../widgets/theme_notifier.dart';
+// import 'finance.dart';
 // import 'hr.dart';
 // import './aiGrow.dart';
 // import './it.dart';
@@ -22,7 +24,7 @@
 //         return SizedBox(
 //           width: drawerWidth.clamp(250, 400),
 //           child: Drawer(
-//             backgroundColor: const Color(0xFF131314),
+//             backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
 //             child: SafeArea(
 //               child: Column(
 //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,25 +34,30 @@
 //                     child: ElevatedButton(
 //                       onPressed: () {},
 //                       style: ElevatedButton.styleFrom(
-//                         backgroundColor: const Color(0xFF222224),
 //                         shape: RoundedRectangleBorder(
 //                           borderRadius: BorderRadius.circular(25),
-//                           side: const BorderSide(
-//                             color: Color(0xFFABABAB),
+//                           side: BorderSide(
+//                             color: Theme.of(context).dividerColor,
 //                             width: 1.5,
 //                           ),
 //                         ),
 //                         minimumSize: const Size(double.infinity, 40),
 //                         padding: EdgeInsets.zero,
 //                       ),
-//                       child: const Row(
+//                       child: Row(
 //                         mainAxisAlignment: MainAxisAlignment.center,
 //                         children: [
-//                           Icon(Icons.add, color: Colors.white),
-//                           SizedBox(width: 8),
+//                           Icon(
+//                             Icons.add,
+//                             color: Theme.of(context).iconTheme.color,
+//                           ),
+//                           const SizedBox(width: 8),
 //                           Text(
 //                             'New Chat',
-//                             style: TextStyle(color: Colors.white),
+//                             style: TextStyle(
+//                               color:
+//                                   Theme.of(context).textTheme.bodyLarge?.color,
+//                             ),
 //                           ),
 //                         ],
 //                       ),
@@ -67,25 +74,30 @@
 //                     child: ElevatedButton(
 //                       onPressed: () {},
 //                       style: ElevatedButton.styleFrom(
-//                         backgroundColor: const Color(0xFF222224),
 //                         shape: RoundedRectangleBorder(
 //                           borderRadius: BorderRadius.circular(25),
-//                           side: const BorderSide(
-//                             color: Color(0xFFABABAB),
+//                           side: BorderSide(
+//                             color: Theme.of(context).dividerColor,
 //                             width: 1.5,
 //                           ),
 //                         ),
 //                         minimumSize: const Size(double.infinity, 40),
 //                         padding: EdgeInsets.zero,
 //                       ),
-//                       child: const Row(
+//                       child: Row(
 //                         mainAxisAlignment: MainAxisAlignment.center,
 //                         children: [
-//                           Icon(Icons.history, color: Colors.white),
-//                           SizedBox(width: 8),
+//                           Icon(
+//                             Icons.history,
+//                             color: Theme.of(context).iconTheme.color,
+//                           ),
+//                           const SizedBox(width: 8),
 //                           Text(
 //                             'Chat History',
-//                             style: TextStyle(color: Colors.white),
+//                             style: TextStyle(
+//                               color:
+//                                   Theme.of(context).textTheme.bodyLarge?.color,
+//                             ),
 //                           ),
 //                         ],
 //                       ),
@@ -93,7 +105,10 @@
 //                   ),
 //                   Column(
 //                     children: [
-//                       const Divider(color: Color(0xFFABABAB), thickness: 1),
+//                       Divider(
+//                         color: Theme.of(context).dividerColor,
+//                         thickness: 1,
+//                       ),
 //                       _buildMenuItem(
 //                         context,
 //                         Icons.delete_outline,
@@ -102,9 +117,18 @@
 //                       ),
 //                       _buildMenuItem(
 //                         context,
-//                         Icons.light_mode_outlined,
-//                         'Light Mode',
-//                         null,
+//                         Provider.of<ThemeNotifier>(context).isDarkMode
+//                             ? Icons.light_mode_outlined
+//                             : Icons.dark_mode_outlined,
+//                         Provider.of<ThemeNotifier>(context).isDarkMode
+//                             ? 'Light Mode'
+//                             : 'Dark Mode',
+//                         () {
+//                           Provider.of<ThemeNotifier>(
+//                             context,
+//                             listen: false,
+//                           ).toggleTheme();
+//                         },
 //                       ),
 //                       _buildMenuItem(
 //                         context,
@@ -125,71 +149,106 @@
 
 //   List<Widget> _menuItems(BuildContext context) {
 //     return [
-//       _buildMenuItem(
-//         context,
-//         Icons.people_outline,
-//         'HR (Human Resources)',
-//         HRScreen(),
-//       ),
+//       _buildMenuItem(context, Icons.people_outline, 'HR (Human Resources)', () {
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => HRScreen()),
+//         );
+//       }),
 //       _buildMenuItem(
 //         context,
 //         Icons.account_balance_outlined,
 //         'Finance & Accounting',
-//         const FinanceScreen(),
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const FinanceScreen()),
+//           );
+//         },
 //       ),
 //       _buildMenuItem(
 //         context,
 //         Icons.local_florist_outlined,
 //         'AI Grow (Smart Agriculture)',
-//         const AIGrowScreen(),
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const AIGrowScreen()),
+//           );
+//         },
 //       ),
-//       _buildMenuItem(
-//         context,
-//         Icons.computer_outlined,
-//         'IT Department',
-//         const ITScreen(),
-//       ),
+//       _buildMenuItem(context, Icons.computer_outlined, 'IT Department', () {
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => const ITScreen()),
+//         );
+//       }),
 //       _buildMenuItem(
 //         context,
 //         Icons.trending_up_outlined,
 //         'Sales & Marketing',
-//         const MarketingScreen(),
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const MarketingScreen()),
+//           );
+//         },
 //       ),
-//       _buildMenuItem(
-//         context,
-//         Icons.security_outlined,
-//         'CCTV & Security',
-//         const SecurityScreen(),
-//       ),
-//       _buildMenuItem(
-//         context,
-//         Icons.shopping_cart_outlined,
-//         'Procurement',
-//         const ProcurementScreen(),
-//       ),
+//       _buildMenuItem(context, Icons.security_outlined, 'CCTV & Security', () {
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => const SecurityScreen()),
+//         );
+//       }),
+//       _buildMenuItem(context, Icons.shopping_cart_outlined, 'Procurement', () {
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => const ProcurementScreen()),
+//         );
+//       }),
 //       _buildMenuItem(
 //         context,
 //         Icons.inventory_2_outlined,
 //         'Inventory Management',
-//         const InventoryScreen(),
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const InventoryScreen()),
+//           );
+//         },
 //       ),
 //       _buildMenuItem(
 //         context,
 //         Icons.cleaning_services_outlined,
 //         'Cleaning & Maintenance',
-//         const CleaningScreen(),
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const CleaningScreen()),
+//           );
+//         },
 //       ),
 //       _buildMenuItem(
 //         context,
 //         Icons.restaurant_outlined,
 //         'Kitchen & Food governance',
-//         const KitchenScreen(),
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const KitchenScreen()),
+//           );
+//         },
 //       ),
 //       _buildMenuItem(
 //         context,
 //         Icons.construction_outlined,
 //         'Construction Management',
-//         const ConstructionScreen(),
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const ConstructionScreen()),
+//           );
+//         },
 //       ),
 //     ];
 //   }
@@ -198,22 +257,18 @@
 //     BuildContext context,
 //     IconData icon,
 //     String text,
-//     Widget? screen,
+//     VoidCallback? onTap,
 //   ) {
 //     return ListTile(
-//       leading: Icon(icon, color: Colors.white, size: 20),
+//       leading: Icon(icon, color: Theme.of(context).iconTheme.color, size: 20),
 //       title: Text(
 //         text,
-//         style: const TextStyle(color: Colors.white, fontSize: 14),
+//         style: TextStyle(
+//           color: Theme.of(context).textTheme.bodyLarge?.color,
+//           fontSize: 14,
+//         ),
 //       ),
-//       onTap: () {
-//         if (screen != null) {
-//           Navigator.pushReplacement(
-//             context,
-//             MaterialPageRoute(builder: (context) => screen),
-//           );
-//         }
-//       },
+//       onTap: onTap,
 //       dense: true,
 //       visualDensity: const VisualDensity(vertical: -2),
 //     );
@@ -234,6 +289,8 @@ import './inventory.dart';
 import './cleaning.dart';
 import 'construction.dart';
 import 'kitchen.dart';
+import 'mainChat.dart'; // Import the MainChat screen
+import 'mainChat.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -254,7 +311,14 @@ class MenuDrawer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ChatScreen(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),

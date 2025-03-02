@@ -1,6 +1,8 @@
 // import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
 // import 'package:flutter_application_1/widgets/inputField.dart';
 // import 'menu.dart';
+// import '../widgets/theme_notifier.dart';
 
 // class HRScreen extends StatelessWidget {
 //   final TextEditingController _controller = TextEditingController();
@@ -11,21 +13,24 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: AppBar(
-//         backgroundColor: const Color(0xFF131314),
+//         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
 //         elevation: 0,
 //         leading: Builder(
 //           builder:
 //               (context) => IconButton(
-//                 icon: const Icon(Icons.menu, color: Colors.white),
+//                 icon: Icon(
+//                   Icons.menu,
+//                   color: Theme.of(context).iconTheme.color,
+//                 ),
 //                 onPressed: () => Scaffold.of(context).openDrawer(),
 //               ),
 //         ),
-//         title: const Column(
+//         title: Column(
 //           children: [
 //             Text(
 //               'Human',
 //               style: TextStyle(
-//                 color: Colors.white,
+//                 color: Theme.of(context).textTheme.bodyLarge?.color,
 //                 fontSize: 16,
 //                 fontWeight: FontWeight.w500,
 //               ),
@@ -33,7 +38,7 @@
 //             Text(
 //               'Resources',
 //               style: TextStyle(
-//                 color: Colors.white,
+//                 color: Theme.of(context).textTheme.bodyLarge?.color,
 //                 fontSize: 16,
 //                 fontWeight: FontWeight.w500,
 //               ),
@@ -43,17 +48,23 @@
 //         centerTitle: true,
 //         actions: [
 //           IconButton(
-//             icon: const Icon(Icons.edit_square, color: Colors.white),
+//             icon: Icon(
+//               Icons.edit_square,
+//               color: Theme.of(context).iconTheme.color,
+//             ),
 //             onPressed: () {},
 //           ),
 //           IconButton(
-//             icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+//             icon: Icon(
+//               Icons.notifications_outlined,
+//               color: Theme.of(context).iconTheme.color,
+//             ),
 //             onPressed: () {},
 //           ),
 //         ],
 //       ),
 //       drawer: const MenuDrawer(),
-//       backgroundColor: const Color(0xFF131314),
+//       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 //       body: Column(
 //         children: [
 //           const Expanded(
@@ -62,11 +73,7 @@
 //               children: [
 //                 Text(
 //                   'How can I help you?',
-//                   style: TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 32,
-//                     fontWeight: FontWeight.w400,
-//                   ),
+//                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w400),
 //                 ),
 //                 SizedBox(height: 24),
 //                 Row(
@@ -137,7 +144,7 @@
 //   Widget build(BuildContext context) {
 //     return Container(
 //       decoration: BoxDecoration(
-//         border: Border.all(color: const Color(0xFFABABAB)),
+//         border: Border.all(color: Theme.of(context).dividerColor),
 //         borderRadius: BorderRadius.circular(25),
 //       ),
 //       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -148,7 +155,10 @@
 //           const SizedBox(width: 8),
 //           Text(
 //             label,
-//             style: const TextStyle(color: Colors.white, fontSize: 14),
+//             style: TextStyle(
+//               color: Theme.of(context).textTheme.bodyLarge?.color,
+//               fontSize: 14,
+//             ),
 //           ),
 //         ],
 //       ),
@@ -282,6 +292,42 @@ class HRScreen extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: const BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            NavBarIcon(icon: Icons.home_outlined),
+            NavBarIcon(icon: Icons.group_outlined),
+            NavBarIcon(icon: Icons.arrow_forward_outlined),
+            NavBarIcon(icon: Icons.chat_bubble_outline_rounded),
+            // NavBarIcon(icon: Icons.description_outlined),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Add this new class for the navigation bar icons
+class NavBarIcon extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  const NavBarIcon({super.key, required this.icon, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Icon(icon, color: Colors.white, size: 30),
     );
   }
 }

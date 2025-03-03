@@ -319,6 +319,8 @@
 
 import 'package:flutter/material.dart';
 import '../hrDashboard/hrDashboard.dart';
+import '../financeDashboard/financeDashboard.dart';
+import '../aiGrowDashboard/aiGrowDashboard.dart';
 
 class DashboardOverview extends StatefulWidget {
   final String username;
@@ -442,17 +444,37 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                           true,
                         ),
                       ),
-                      _buildDepartmentCard(
-                        'Finance & Budgeting',
-                        'budgeting, tax calculations...',
-                        Icons.attach_money,
-                        true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const FinanceDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'Finance & Budgeting',
+                          'budgeting, tax calculations...',
+                          Icons.attach_money,
+                          true,
+                        ),
                       ),
-                      _buildDepartmentCard(
-                        'AI Grow',
-                        'Monitor greenhouse, Automate fertigation...',
-                        Icons.eco,
-                        true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AIGrowDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'AI Grow',
+                          'Monitor greenhouse, Automate fertigation...',
+                          Icons.eco,
+                          true,
+                        ),
                       ),
                       _buildDepartmentCard(
                         'CCTV Monitoring',

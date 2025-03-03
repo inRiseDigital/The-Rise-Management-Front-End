@@ -31,7 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
 
-  final String _baseUrl = 'https://99aa-122-255-33-126.ngrok-free.app/chat';
+  final String _baseUrl = 'https://game-parrot-trivially.ngrok-free.app/chat';
 
   @override
   void dispose() {

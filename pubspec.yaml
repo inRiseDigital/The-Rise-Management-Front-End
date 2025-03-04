@@ -76,13 +76,7 @@ flutter:
   assets:
     - lib/assets/images/RiseLogo.png
     - lib/assets/images/ayubowan.png
-    # - D:\clone\The-Rise-Management-Front-End\lib\assets\images\1.jpg
-    # - D:\clone\The-Rise-Management-Front-End\lib\assets\images\2.jpg
-    # - D:\clone\The-Rise-Management-Front-End\lib\assets\images\3.jpg  
-    # - D:\clone\The-Rise-Management-Front-End\lib\assets\images\4.jpg
-    # - D:\clone\The-Rise-Management-Front-End\lib\assets\images\5.jpg
-    # - D:\clone\The-Rise-Management-Front-End\lib\assets\images\6.jpg
-    # - D:\clone\The-Rise-Management-Front-End\lib\assets\images\7.jpg
+  
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

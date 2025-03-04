@@ -321,6 +321,7 @@ import 'package:flutter/material.dart';
 import '../hrDashboard/hrDashboard.dart';
 import '../financeDashboard/financeDashboard.dart';
 import '../aiGrowDashboard/aiGrowDashboard.dart';
+import '../cctvDashboard/cctvDashboard.dart';
 
 class DashboardOverview extends StatefulWidget {
   final String username;
@@ -476,11 +477,27 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                           true,
                         ),
                       ),
-                      _buildDepartmentCard(
-                        'CCTV Monitoring',
-                        'Monitor greenhouse, Automate fertigation...',
-                        Icons.camera_alt,
-                        true,
+                      // _buildDepartmentCard(
+                      //   'CCTV Monitoring',
+                      //   'Monitor greenhouse, Automate fertigation...',
+                      //   Icons.camera_alt,
+                      //   true,
+                      // ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CCTVDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'CCTV Monitoring',
+                          'Monitor greenhouse, Automate fertigation...',
+                          Icons.camera_alt,
+                          true,
+                        ),
                       ),
                       _buildDepartmentCard(
                         'Inventory Management',

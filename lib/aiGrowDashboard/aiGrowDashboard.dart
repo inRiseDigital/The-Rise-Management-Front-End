@@ -286,7 +286,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -310,7 +309,8 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
 
     _scrollController.addListener(() {
       if (!_userScrolling) {
-        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
           setState(() => _isScrollingForward = false);
         } else if (_scrollController.position.pixels == 0) {
           setState(() => _isScrollingForward = true);
@@ -481,7 +481,7 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
               ),
             ),
             Positioned(
-              bottom: 80,
+              bottom: 20,
               right: 20,
               child: GestureDetector(
                 onTap: () {
@@ -615,10 +615,7 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
           const SizedBox(width: 16),
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
           const Spacer(),
           Text(

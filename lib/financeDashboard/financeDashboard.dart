@@ -1,4 +1,7 @@
+
+
 // import 'package:flutter/material.dart';
+// import 'dart:ui' as ui;
 
 // class FinanceDashboard extends StatefulWidget {
 //   const FinanceDashboard({Key? key}) : super(key: key);
@@ -21,38 +24,42 @@
 //                   // Finance Header
 //                   Container(
 //                     width: double.infinity,
-//                     padding: const EdgeInsets.all(24.0),
+//                     padding: const EdgeInsets.all(32),
 //                     decoration: BoxDecoration(
 //                       color: const Color(0xFF1A1A1A),
-//                       borderRadius: BorderRadius.circular(16),
+//                       borderRadius: BorderRadius.circular(24),
 //                     ),
 //                     margin: const EdgeInsets.all(16.0),
 //                     child: const Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       mainAxisAlignment: MainAxisAlignment.center,
 //                       children: [
 //                         Text(
 //                           'Finance',
+//                           textAlign: TextAlign.center,
 //                           style: TextStyle(
 //                             color: Colors.white,
-//                             fontSize: 40,
-//                             fontWeight: FontWeight.bold,
+//                             fontSize: 32,
+//                             fontWeight: FontWeight.w500,
 //                           ),
 //                         ),
 //                         SizedBox(height: 16),
 //                         Text(
 //                           'Total Budget',
+//                           textAlign: TextAlign.center,
 //                           style: TextStyle(
 //                             color: Color(0xFF666666),
-//                             fontSize: 24,
+//                             fontSize: 16,
 //                           ),
 //                         ),
 //                         SizedBox(height: 8),
 //                         Text(
 //                           '\$10M',
+//                           textAlign: TextAlign.center,
 //                           style: TextStyle(
 //                             color: Colors.white,
 //                             fontSize: 48,
-//                             fontWeight: FontWeight.bold,
+//                             fontWeight: FontWeight.w500,
 //                           ),
 //                         ),
 //                       ],
@@ -64,8 +71,8 @@
 //                     width: double.infinity,
 //                     padding: const EdgeInsets.all(24.0),
 //                     decoration: BoxDecoration(
-//                       color: const Color(0xFF2A2A2A),
-//                       borderRadius: BorderRadius.circular(16),
+//                       color: Colors.white.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(20),
 //                     ),
 //                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
 //                     child: Column(
@@ -76,7 +83,7 @@
 //                           style: TextStyle(
 //                             color: Colors.white,
 //                             fontSize: 24,
-//                             fontWeight: FontWeight.bold,
+//                             fontWeight: FontWeight.w500,
 //                           ),
 //                         ),
 //                         const SizedBox(height: 16),
@@ -88,7 +95,7 @@
 //                               style: TextStyle(
 //                                 color: Colors.white,
 //                                 fontSize: 36,
-//                                 fontWeight: FontWeight.bold,
+//                                 fontWeight: FontWeight.w500,
 //                               ),
 //                             ),
 //                             Text(
@@ -198,37 +205,45 @@
 //   }
 
 //   Widget _buildBudgetCard(String title, String value) {
-//     return Container(
-//       width: double.infinity,
-//       padding: const EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white.withOpacity(0.1),
-//         borderRadius: BorderRadius.circular(20),
-//       ),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Text(
-//             title,
-//             style: const TextStyle(
-//               color: Colors.white,
-//               fontSize: 18,
-//               fontWeight: FontWeight.w400,
-//             ),
+//     return ClipRRect(
+//       borderRadius: BorderRadius.circular(20),
+//       child: BackdropFilter(
+//         filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+//         child: Container(
+//           width: double.infinity,
+//           decoration: BoxDecoration(
+//             color: Colors.white.withOpacity(0.1),
+//             borderRadius: BorderRadius.circular(20),
 //           ),
-//           Text(
-//             value,
-//             style: const TextStyle(
-//               color: Colors.white,
-//               fontSize: 24,
-//               fontWeight: FontWeight.w500,
-//             ),
+//           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Text(
+//                 title,
+//                 style: const TextStyle(
+//                   color: Colors.white,
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.w400,
+//                 ),
+//               ),
+//               Text(
+//                 value,
+//                 style: const TextStyle(
+//                   color: Colors.white,
+//                   fontSize: 24,
+//                   fontWeight: FontWeight.w500,
+//                 ),
+//               ),
+//             ],
 //           ),
-//         ],
+//         ),
 //       ),
 //     );
 //   }
 // }
+
+
 
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -241,6 +256,8 @@ class FinanceDashboard extends StatefulWidget {
 }
 
 class _FinanceDashboardState extends State<FinanceDashboard> {
+  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -401,32 +418,36 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
           selectedItemColor: Colors.white,
           unselectedItemColor: const Color(0xFF666666),
           type: BottomNavigationBarType.fixed,
-          currentIndex: 0,
+          currentIndex: _selectedIndex,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           onTap: (index) {
-            if (index == 0) {
-              Navigator.pop(context);
-            }
+            setState(() {
+              _selectedIndex = index;
+            });
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 24,
-                child: Icon(Icons.home_outlined, color: Colors.black, size: 20),
-              ),
-              label: '',
+              icon: _selectedIndex == 0
+                  ? const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 24,
+                      child: Icon(Icons.description_outlined, color: Colors.black, size: 20),
+                    )
+                  : const Icon(Icons.description_outlined, size: 24),
+              label: 'Overview',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people_outline, size: 24),
-              label: '',
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.pie_chart_outline, size: 24),
+              label: 'Budget',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.send_outlined, size: 24),
-              label: '',
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.credit_card_outlined, size: 24),
+              label: 'Monitoring',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_outlined, size: 24),
-              label: '',
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.hourglass_empty, size: 24),
+              label: 'Allocation',
             ),
           ],
         ),

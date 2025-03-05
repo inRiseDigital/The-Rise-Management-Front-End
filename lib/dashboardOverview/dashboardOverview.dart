@@ -1,4 +1,8 @@
 // import 'package:flutter/material.dart';
+// import '../hrDashboard/hrDashboard.dart';
+// import '../financeDashboard/financeDashboard.dart';
+// import '../aiGrowDashboard/aiGrowDashboard.dart';
+// import '../cctvDashboard/cctvDashboard.dart';
 
 // class DashboardOverview extends StatefulWidget {
 //   final String username;
@@ -24,12 +28,11 @@
 //           children: [
 //             Column(
 //               children: [
-//                 // Welcome section with image
 //                 Container(
 //                   width: double.infinity,
 //                   padding: const EdgeInsets.all(24.0),
 //                   decoration: BoxDecoration(
-//                     color: const Color(0xFF1A1A1A),
+//                     color: const Color.fromARGB(255, 0, 0, 0),
 //                     borderRadius: BorderRadius.circular(16),
 //                   ),
 //                   margin: const EdgeInsets.all(16.0),
@@ -38,7 +41,7 @@
 //                     children: [
 //                       Image.asset(
 //                         'lib/assets/images/ayubowan.png',
-//                         height: 50, // Adjust the height as needed
+//                         height: 50,
 //                         fit: BoxFit.contain,
 //                       ),
 //                       const SizedBox(height: 8),
@@ -61,9 +64,6 @@
 //                     ],
 //                   ),
 //                 ),
-
-//                 // Rest of the code remains the same...
-//                 // Quick Overview section
 //                 Container(
 //                   width: double.infinity,
 //                   padding: const EdgeInsets.all(16.0),
@@ -102,8 +102,6 @@
 //                     ],
 //                   ),
 //                 ),
-
-//                 // Departments Grid
 //                 Expanded(
 //                   child: GridView.count(
 //                     crossAxisCount: 2,
@@ -112,29 +110,69 @@
 //                     mainAxisSpacing: 16.0,
 //                     crossAxisSpacing: 16.0,
 //                     children: [
-//                       _buildDepartmentCard(
-//                         'Human Resources',
-//                         'Automate payroll, manage employee data...',
-//                         Icons.people,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const HRDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'Human Resources',
+//                           'Automate payroll, manage employee data...',
+//                           Icons.people,
+//                           true,
+//                         ),
 //                       ),
-//                       _buildDepartmentCard(
-//                         'Finance & Budgeting',
-//                         'budgeting, tax calculations...',
-//                         Icons.attach_money,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const FinanceDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'Finance & Budgeting',
+//                           'budgeting, tax calculations...',
+//                           Icons.attach_money,
+//                           true,
+//                         ),
 //                       ),
-//                       _buildDepartmentCard(
-//                         'AI Grow',
-//                         'Monitor greenhouse, Automate fertigation...',
-//                         Icons.eco,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const AIGrowDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'AI Grow',
+//                           'Monitor greenhouse, Automate fertigation...',
+//                           Icons.eco,
+//                           true,
+//                         ),
 //                       ),
-//                       _buildDepartmentCard(
-//                         'CCTV Monitoring',
-//                         'Monitor greenhouse, Automate fertigation...',
-//                         Icons.camera_alt,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const CCTVDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'CCTV Monitoring',
+//                           'Monitor greenhouse, Automate fertigation...',
+//                           Icons.camera_alt,
+//                           true,
+//                         ),
 //                       ),
 //                       _buildDepartmentCard(
 //                         'Inventory Management',
@@ -177,7 +215,6 @@
 //                 ),
 //               ],
 //             ),
-//             // Chatbot Icon
 //             Positioned(
 //               bottom: 80,
 //               right: 20,
@@ -219,7 +256,10 @@
 //         items: const [
 //           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
 //           BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
-//           BottomNavigationBarItem(icon: Icon(Icons.send), label: ''),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.person),
+//             label: '',
+//           ), // Changed from send to profile
 //           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
 //         ],
 //       ),
@@ -338,6 +378,8 @@ class DashboardOverview extends StatefulWidget {
 }
 
 class _DashboardOverviewState extends State<DashboardOverview> {
+  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -351,7 +393,7 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(24.0),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1A1A1A),
+                    color: const Color.fromARGB(255, 0, 0, 0),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   margin: const EdgeInsets.all(16.0),
@@ -477,12 +519,6 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                           true,
                         ),
                       ),
-                      // _buildDepartmentCard(
-                      //   'CCTV Monitoring',
-                      //   'Monitor greenhouse, Automate fertigation...',
-                      //   Icons.camera_alt,
-                      //   true,
-                      // ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -578,11 +614,61 @@ class _DashboardOverviewState extends State<DashboardOverview> {
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.white,
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.send), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon:
+                _selectedIndex == 0
+                    ? const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 24,
+                      child: Icon(Icons.home, color: Colors.black, size: 20),
+                    )
+                    : const Icon(Icons.home, size: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon:
+                _selectedIndex == 1
+                    ? const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 24,
+                      child: Icon(Icons.people, color: Colors.black, size: 20),
+                    )
+                    : const Icon(Icons.people, size: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon:
+                _selectedIndex == 2
+                    ? const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 24,
+                      child: Icon(Icons.person, color: Colors.black, size: 20),
+                    )
+                    : const Icon(Icons.person, size: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon:
+                _selectedIndex == 3
+                    ? const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 24,
+                      child: Icon(
+                        Icons.notifications,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                    )
+                    : const Icon(Icons.notifications, size: 24),
+            label: '',
+          ),
         ],
       ),
     );

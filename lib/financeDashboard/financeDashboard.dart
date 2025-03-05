@@ -1,5 +1,3 @@
-
-
 // import 'package:flutter/material.dart';
 // import 'dart:ui' as ui;
 
@@ -11,6 +9,8 @@
 // }
 
 // class _FinanceDashboardState extends State<FinanceDashboard> {
+//   int _selectedIndex = 0;
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -26,7 +26,7 @@
 //                     width: double.infinity,
 //                     padding: const EdgeInsets.all(32),
 //                     decoration: BoxDecoration(
-//                       color: const Color(0xFF1A1A1A),
+//                       color: const Color.fromARGB(255, 0, 0, 0),
 //                       borderRadius: BorderRadius.circular(24),
 //                     ),
 //                     margin: const EdgeInsets.all(16.0),
@@ -171,32 +171,41 @@
 //           selectedItemColor: Colors.white,
 //           unselectedItemColor: const Color(0xFF666666),
 //           type: BottomNavigationBarType.fixed,
-//           currentIndex: 0,
+//           currentIndex: _selectedIndex,
+//           showSelectedLabels: true,
+//           showUnselectedLabels: true,
 //           onTap: (index) {
-//             if (index == 0) {
-//               Navigator.pop(context);
-//             }
+//             setState(() {
+//               _selectedIndex = index;
+//             });
 //           },
-//           items: const [
+//           items: [
 //             BottomNavigationBarItem(
-//               icon: CircleAvatar(
-//                 backgroundColor: Colors.white,
-//                 radius: 24,
-//                 child: Icon(Icons.home_outlined, color: Colors.black, size: 20),
-//               ),
-//               label: '',
+//               icon:
+//                   _selectedIndex == 0
+//                       ? const CircleAvatar(
+//                         backgroundColor: Colors.white,
+//                         radius: 24,
+//                         child: Icon(
+//                           Icons.description_outlined,
+//                           color: Colors.black,
+//                           size: 20,
+//                         ),
+//                       )
+//                       : const Icon(Icons.description_outlined, size: 24),
+//               label: 'Overview',
 //             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.people_outline, size: 24),
-//               label: '',
+//             const BottomNavigationBarItem(
+//               icon: Icon(Icons.pie_chart_outline, size: 24),
+//               label: 'Budget',
 //             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.send_outlined, size: 24),
-//               label: '',
+//             const BottomNavigationBarItem(
+//               icon: Icon(Icons.credit_card_outlined, size: 24),
+//               label: 'Monitoring',
 //             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.notifications_outlined, size: 24),
-//               label: '',
+//             const BottomNavigationBarItem(
+//               icon: Icon(Icons.hourglass_empty, size: 24),
+//               label: 'Allocation',
 //             ),
 //           ],
 //         ),
@@ -243,8 +252,6 @@
 //   }
 // }
 
-
-
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -273,7 +280,7 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1A1A1A),
+                      color: const Color.fromARGB(255, 0, 0, 0),
                       borderRadius: BorderRadius.circular(24),
                     ),
                     margin: const EdgeInsets.all(16.0),
@@ -428,25 +435,63 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: _selectedIndex == 0
-                  ? const CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 24,
-                      child: Icon(Icons.description_outlined, color: Colors.black, size: 20),
-                    )
-                  : const Icon(Icons.description_outlined, size: 24),
+              icon:
+                  _selectedIndex == 0
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.description_outlined,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.description_outlined, size: 24),
               label: 'Overview',
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.pie_chart_outline, size: 24),
+            BottomNavigationBarItem(
+              icon:
+                  _selectedIndex == 1
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.pie_chart_outline,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.pie_chart_outline, size: 24),
               label: 'Budget',
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.credit_card_outlined, size: 24),
+            BottomNavigationBarItem(
+              icon:
+                  _selectedIndex == 2
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.credit_card_outlined,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.credit_card_outlined, size: 24),
               label: 'Monitoring',
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.hourglass_empty, size: 24),
+            BottomNavigationBarItem(
+              icon:
+                  _selectedIndex == 3
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.hourglass_empty,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.hourglass_empty, size: 24),
               label: 'Allocation',
             ),
           ],

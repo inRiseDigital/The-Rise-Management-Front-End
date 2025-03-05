@@ -367,7 +367,7 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(24.0),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1A1A1A),
+                      color: const Color.fromARGB(255, 0, 0, 0),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     margin: const EdgeInsets.all(16.0),

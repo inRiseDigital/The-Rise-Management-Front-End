@@ -3,6 +3,7 @@
 // import '../financeDashboard/financeDashboard.dart';
 // import '../aiGrowDashboard/aiGrowDashboard.dart';
 // import '../cctvDashboard/cctvDashboard.dart';
+// import '../inventoryDashboard/inventoryDashboard.dart';
 
 // class DashboardOverview extends StatefulWidget {
 //   final String username;
@@ -19,6 +20,8 @@
 // }
 
 // class _DashboardOverviewState extends State<DashboardOverview> {
+//   int _selectedIndex = 0;
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -174,11 +177,21 @@
 //                           true,
 //                         ),
 //                       ),
-//                       _buildDepartmentCard(
-//                         'Inventory Management',
-//                         'Track stock levels, automate replenishment...',
-//                         Icons.inventory,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const InventoryDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'Inventory Management',
+//                           'Track stock levels, automate replenishment...',
+//                           Icons.inventory,
+//                           true,
+//                         ),
 //                       ),
 //                       _buildDepartmentCard(
 //                         'Sales and Marketing',
@@ -253,14 +266,61 @@
 //         unselectedItemColor: Colors.grey,
 //         selectedItemColor: Colors.white,
 //         type: BottomNavigationBarType.fixed,
-//         items: const [
-//           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-//           BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
+//         currentIndex: _selectedIndex,
+//         onTap: (index) {
+//           setState(() {
+//             _selectedIndex = index;
+//           });
+//         },
+//         items: [
 //           BottomNavigationBarItem(
-//             icon: Icon(Icons.person),
+//             icon:
+//                 _selectedIndex == 0
+//                     ? const CircleAvatar(
+//                       backgroundColor: Colors.white,
+//                       radius: 24,
+//                       child: Icon(Icons.home, color: Colors.black, size: 20),
+//                     )
+//                     : const Icon(Icons.home, size: 24),
 //             label: '',
-//           ), // Changed from send to profile
-//           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
+//           ),
+//           BottomNavigationBarItem(
+//             icon:
+//                 _selectedIndex == 1
+//                     ? const CircleAvatar(
+//                       backgroundColor: Colors.white,
+//                       radius: 24,
+//                       child: Icon(Icons.people, color: Colors.black, size: 20),
+//                     )
+//                     : const Icon(Icons.people, size: 24),
+//             label: '',
+//           ),
+//           BottomNavigationBarItem(
+//             icon:
+//                 _selectedIndex == 2
+//                     ? const CircleAvatar(
+//                       backgroundColor: Colors.white,
+//                       radius: 24,
+//                       child: Icon(Icons.person, color: Colors.black, size: 20),
+//                     )
+//                     : const Icon(Icons.person, size: 24),
+//             label: '',
+//           ),
+//           BottomNavigationBarItem(
+//             icon:
+//                 _selectedIndex == 3
+//                     ? const CircleAvatar(
+//                       backgroundColor: Colors.white,
+//                       radius: 24,
+//                       child: Icon(
+//                         Icons.notifications,
+//                         color: Colors.black,
+//                         size: 20,
+//                       ),
+//                     )
+//                     : const Icon(Icons.notifications, size: 24),
+//             label: '',
+//           ),
 //         ],
 //       ),
 //     );
@@ -362,6 +422,11 @@ import '../hrDashboard/hrDashboard.dart';
 import '../financeDashboard/financeDashboard.dart';
 import '../aiGrowDashboard/aiGrowDashboard.dart';
 import '../cctvDashboard/cctvDashboard.dart';
+import '../inventoryDashboard/inventoryDashboard.dart';
+import '../procurmentDashboard/procurmentDashboard.dart';
+import '../cleaningDashboard/cleaningDashboard.dart';
+import '../kitchenDashboard/kitchenDashboard.dart';
+import '../constructionDashboard/constructionDashboard.dart';
 
 class DashboardOverview extends StatefulWidget {
   final String username;
@@ -535,11 +600,21 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                           true,
                         ),
                       ),
-                      _buildDepartmentCard(
-                        'Inventory Management',
-                        'Track stock levels, automate replenishment...',
-                        Icons.inventory,
-                        true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const InventoryDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'Inventory Management',
+                          'Track stock levels, automate replenishment...',
+                          Icons.inventory,
+                          true,
+                        ),
                       ),
                       _buildDepartmentCard(
                         'Sales and Marketing',
@@ -547,29 +622,71 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                         Icons.trending_up,
                         true,
                       ),
-                      _buildDepartmentCard(
-                        'Procurement',
-                        'Automate purchase order creation...',
-                        Icons.shopping_cart,
-                        true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => const ProcurementDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'Procurement',
+                          'Automate purchase order creation...',
+                          Icons.shopping_cart,
+                          true,
+                        ),
                       ),
-                      _buildDepartmentCard(
-                        'Cleaning and Maintenance',
-                        'Schedule and track cleaning tasks...',
-                        Icons.cleaning_services,
-                        true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CleaningDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'Cleaning and Maintenance',
+                          'Schedule and track cleaning tasks...',
+                          Icons.cleaning_services,
+                          true,
+                        ),
                       ),
-                      _buildDepartmentCard(
-                        'Kitchen Management',
-                        'Track food inventory, expiration dates...',
-                        Icons.restaurant,
-                        true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const KitchenDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'Kitchen Management',
+                          'Track food inventory, expiration dates...',
+                          Icons.restaurant,
+                          true,
+                        ),
                       ),
-                      _buildDepartmentCard(
-                        'Construction Management',
-                        'Monitor ongoing projects, track milestones...',
-                        Icons.construction,
-                        true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => const ConstructionDashboard(),
+                            ),
+                          );
+                        },
+                        child: _buildDepartmentCard(
+                          'Construction Management',
+                          'Monitor ongoing projects, track milestones...',
+                          Icons.construction,
+                          true,
+                        ),
                       ),
                     ],
                   ),

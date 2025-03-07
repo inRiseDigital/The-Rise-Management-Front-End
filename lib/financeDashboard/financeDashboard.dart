@@ -325,7 +325,7 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(24.0),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: const Color(0xFFABABAB),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -335,7 +335,7 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
                         const Text(
                           'Spent Budget',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
                           ),
@@ -347,7 +347,7 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
                             const Text(
                               '\$29k',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 36,
                                 fontWeight: FontWeight.w500,
                               ),

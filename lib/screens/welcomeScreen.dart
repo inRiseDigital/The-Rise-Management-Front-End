@@ -1,9 +1,6 @@
 // import 'package:flutter/material.dart';
-// import 'login.dart'; // Import your login screen
+// import '../riseWelcomeScreen/riseWelcomeScreen.dart'; // Import the RiseWelcomeScreen
 
-// // --------------------------------------------------------------------------
-// // Custom Loader Widget with blinking dots
-// // --------------------------------------------------------------------------
 // class Loader extends StatefulWidget {
 //   const Loader({Key? key}) : super(key: key);
 
@@ -25,7 +22,6 @@
 //   @override
 //   void initState() {
 //     super.initState();
-//     // Create an AnimationController that repeats every 1 second.
 //     _controller = AnimationController(
 //       vsync: this,
 //       duration: const Duration(milliseconds: 1000),
@@ -43,14 +39,11 @@
 //     return Row(
 //       mainAxisAlignment: MainAxisAlignment.center,
 //       children: List.generate(numDots, (index) {
-//         // Each dot gets an offset so they blink sequentially.
 //         double offset = index / numDots;
 //         return AnimatedBuilder(
 //           animation: _controller,
 //           builder: (context, child) {
-//             // Calculate progress with the offset, wrapping using modulo.
 //             double progress = (_controller.value + offset) % 1.0;
-//             // Dot is "on" (fully opaque) for the first half of its cycle, otherwise dim.
 //             double opacity = progress < 0.5 ? 1.0 : 0.2;
 //             return Container(
 //               width: 8,
@@ -68,9 +61,6 @@
 //   }
 // }
 
-// // --------------------------------------------------------------------------
-// // WelcomeScreen with the custom Loader effect
-// // --------------------------------------------------------------------------
 // class WelcomeScreen extends StatefulWidget {
 //   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -84,7 +74,6 @@
 //   late Animation<double> _fadeAnimation;
 //   late Animation<double> _slideAnimation;
 
-//   // Controller and animation for toggling "RISE" color.
 //   late AnimationController _colorController;
 //   late Animation<Color?> _riseColorAnimation;
 
@@ -92,7 +81,6 @@
 //   void initState() {
 //     super.initState();
 
-//     // Fade and slide animations.
 //     _controller = AnimationController(
 //       duration: const Duration(milliseconds: 3000),
 //       vsync: this,
@@ -111,7 +99,6 @@
 //     );
 //     _controller.forward();
 
-//     // "RISE" color toggle animations.
 //     _colorController = AnimationController(
 //       duration: const Duration(milliseconds: 3000),
 //       vsync: this,
@@ -131,11 +118,10 @@
 //       ),
 //     ]).animate(_colorController);
 
-//     // Navigate to login screen after the animation completes.
 //     Future.delayed(const Duration(milliseconds: 4000), () {
 //       Navigator.pushReplacement(
 //         context,
-//         MaterialPageRoute(builder: (context) => const LoginScreen()),
+//         MaterialPageRoute(builder: (context) => const RiseWelcomeScreen()),
 //       );
 //     });
 //   }
@@ -150,7 +136,6 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       // Optional: Set a background color or use a gradient.
 //       body: Container(
 //         decoration: const BoxDecoration(
 //           gradient: LinearGradient(
@@ -170,14 +155,12 @@
 //                   child: Column(
 //                     mainAxisAlignment: MainAxisAlignment.center,
 //                     children: [
-//                       // Logo without rounded background or shadow.
 //                       Image.asset(
 //                         'lib/assets/images/RiseLogo.png',
 //                         width: 150,
 //                         height: 150,
 //                       ),
 //                       const SizedBox(height: 40),
-//                       // Title with "THE" in white and "RISE" in toggling colors.
 //                       RichText(
 //                         text: TextSpan(
 //                           children: [
@@ -188,7 +171,7 @@
 //                                 fontSize: 42,
 //                                 fontWeight: FontWeight.w800,
 //                                 letterSpacing: 6.0,
-//                                 fontFamily: 'Helvetica',
+//                                 fontFamily: 'SignPainterMedium', // Custom font
 //                                 height: 0.9,
 //                               ),
 //                             ),
@@ -199,7 +182,7 @@
 //                                 fontSize: 42,
 //                                 fontWeight: FontWeight.w800,
 //                                 letterSpacing: 6.0,
-//                                 fontFamily: 'Helvetica',
+//                                 fontFamily: 'SignPainterMedium', // Custom font
 //                                 height: 0.9,
 //                               ),
 //                             ),
@@ -207,7 +190,6 @@
 //                         ),
 //                       ),
 //                       const SizedBox(height: 20),
-//                       // Loader effect (blinking dots) with a "Loading..." label.
 //                       Column(
 //                         mainAxisSize: MainAxisSize.min,
 //                         children: const [

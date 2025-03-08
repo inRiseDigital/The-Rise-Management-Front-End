@@ -214,9 +214,19 @@
 //           Expanded(
 //             child: ListView(
 //               children: [
-//                 _buildProjectItemCard('New Office Block', '25/03/05', 69),
+//                 _buildProjectItemCard(
+//                   context,
+//                   'New Office Block',
+//                   '25/03/05',
+//                   69,
+//                 ),
 //                 const SizedBox(height: 16), // Add vertical spacing
-//                 _buildProjectItemCard('New Office Block', '25/03/05', 29),
+//                 _buildProjectItemCard(
+//                   context,
+//                   'New Office Block',
+//                   '25/03/05',
+//                   29,
+//                 ),
 //               ],
 //             ),
 //           ),
@@ -259,7 +269,12 @@
 //     );
 //   }
 
-//   Widget _buildProjectItemCard(String title, String dueDate, int progress) {
+//   Widget _buildProjectItemCard(
+//     BuildContext context,
+//     String title,
+//     String dueDate,
+//     int progress,
+//   ) {
 //     return ClipRRect(
 //       borderRadius: BorderRadius.circular(20),
 //       child: BackdropFilter(
@@ -293,20 +308,16 @@
 //                 style: const TextStyle(color: Colors.white, fontSize: 14),
 //               ),
 //               const SizedBox(height: 4),
-//               // Replace custom striped progress bar with image
+//               // Custom striped progress bar
 //               Container(
 //                 height: 10,
 //                 decoration: BoxDecoration(
 //                   borderRadius: BorderRadius.circular(5),
 //                   color: Colors.grey,
 //                 ),
-//                 child: ClipRRect(
-//                   borderRadius: BorderRadius.circular(5),
-//                   child: Image.asset(
-//                     'lib/assets/images/constrctionProgressBar.png',
-//                     fit: BoxFit.cover,
-//                     width: double.infinity,
-//                   ),
+//                 child: CustomPaint(
+//                   painter: StripedProgressBarPainter(progress: progress),
+//                   child: Container(),
 //                 ),
 //               ),
 //             ],
@@ -314,6 +325,42 @@
 //         ),
 //       ),
 //     );
+//   }
+// }
+
+// class StripedProgressBarPainter extends CustomPainter {
+//   final int progress;
+
+//   StripedProgressBarPainter({required this.progress});
+
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()..style = PaintingStyle.fill;
+
+//     final stripeWidth = 10.0;
+//     final stripeHeight = size.height;
+//     final numStripes = (size.width / stripeWidth).ceil();
+
+//     for (int i = 0; i < numStripes; i++) {
+//       paint.color = i % 2 == 0 ? Colors.yellow : Colors.black;
+//       final xOffset = i * stripeWidth;
+//       canvas.drawRect(
+//         Rect.fromLTWH(xOffset, 0, stripeWidth, stripeHeight),
+//         paint,
+//       );
+//     }
+
+//     // Clip the progress
+//     canvas.save();
+//     canvas.clipRect(
+//       Rect.fromLTWH(0, 0, size.width * (progress / 100), size.height),
+//     );
+//     canvas.restore();
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     return true;
 //   }
 // }
 
@@ -361,6 +408,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 class ConstructionDashboard extends StatefulWidget {
   const ConstructionDashboard({Key? key}) : super(key: key);
@@ -387,36 +435,7 @@ class _ConstructionDashboardState extends State<ConstructionDashboard> {
         child: Stack(
           children: [
             _screens[_selectedIndex],
-            Positioned(
-              bottom: 80,
-              right: 20,
-              child: GestureDetector(
-                onTap: () {
-                  // Handle chatbot tap
-                },
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
           ],
         ),
       ),

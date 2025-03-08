@@ -1,5 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'dart:ui';
+// import '../hrDashboard/hrLeave.dart'; // Import the LeaveScreen
+// import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 // class HRDashboard extends StatefulWidget {
 //   const HRDashboard({Key? key}) : super(key: key);
@@ -11,119 +13,18 @@
 // class _HRDashboardState extends State<HRDashboard> {
 //   int _selectedIndex = 0;
 
+//   final List<Widget> _screens = [
+//     const HRDashboardScreen(),
+//     const TeamScreen(), // Placeholder for Team screen
+//     const LeaveScreen(),
+//     const NotificationsScreen(), // Placeholder for Notifications screen
+//   ];
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       backgroundColor: const Color(0xFF131314),
-//       body: SafeArea(
-//         child: Stack(
-//           children: [
-//             SingleChildScrollView(
-//               child: Padding(
-//                 padding: const EdgeInsets.all(16.0),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Container(
-//                       width: double.infinity,
-//                       decoration: BoxDecoration(
-//                         color: const Color.fromARGB(255, 0, 0, 0),
-//                         borderRadius: BorderRadius.circular(24),
-//                       ),
-//                       padding: const EdgeInsets.all(32),
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.center,
-//                         children: const [
-//                           Text(
-//                             'HR',
-//                             style: TextStyle(
-//                               color: Colors.white,
-//                               fontSize: 32,
-//                               fontWeight: FontWeight.w500,
-//                             ),
-//                           ),
-//                           SizedBox(height: 16),
-//                           Text(
-//                             'Total Employees',
-//                             style: TextStyle(
-//                               color: Color(0xFF666666),
-//                               fontSize: 16,
-//                             ),
-//                           ),
-//                           SizedBox(height: 8),
-//                           Text(
-//                             '255',
-//                             style: TextStyle(
-//                               color: Colors.white,
-//                               fontSize: 48,
-//                               fontWeight: FontWeight.w500,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     const SizedBox(height: 24),
-//                     _buildMetricCard(
-//                       icon: Icons.account_balance_wallet_outlined,
-//                       title: 'Payroll Due',
-//                       value: '\$100K',
-//                     ),
-//                     const SizedBox(height: 16),
-//                     _buildMetricCard(
-//                       icon: Icons.event_note_outlined,
-//                       title: 'Leave Request',
-//                       value: '10',
-//                     ),
-//                     const SizedBox(height: 16),
-//                     _buildMetricCard(
-//                       icon: Icons.business_center_outlined,
-//                       title: 'Employees on site',
-//                       value: '200',
-//                     ),
-//                     const SizedBox(height: 16),
-//                     _buildMetricCard(
-//                       icon: Icons.person_outline_outlined,
-//                       title: 'Employees on Leave',
-//                       value: '50',
-//                     ),
-//                     const SizedBox(height: 80),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//             Positioned(
-//               bottom: 80,
-//               right: 20,
-//               child: GestureDetector(
-//                 onTap: () {
-//                   // Handle chatbot tap
-//                 },
-//                 child: Container(
-//                   width: 60,
-//                   height: 60,
-//                   decoration: const BoxDecoration(
-//                     color: Colors.black,
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Container(
-//                     margin: const EdgeInsets.all(2),
-//                     decoration: BoxDecoration(
-//                       color: Colors.black,
-//                       shape: BoxShape.circle,
-//                       border: Border.all(color: Colors.white, width: 2),
-//                     ),
-//                     child: const Icon(
-//                       Icons.chat_bubble_outline,
-//                       color: Colors.white,
-//                       size: 30,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
+//       body: SafeArea(child: _screens[_selectedIndex]),
 //       bottomNavigationBar: Theme(
 //         data: ThemeData(
 //           splashColor: Colors.transparent,
@@ -169,7 +70,7 @@
 //                         ),
 //                       )
 //                       : const Icon(Icons.group_outlined, size: 24),
-//               label: 'Team',
+//               label: 'Employees',
 //             ),
 //             BottomNavigationBarItem(
 //               icon:
@@ -204,6 +105,92 @@
 //           ],
 //         ),
 //       ),
+//     );
+//   }
+// }
+
+// class HRDashboardScreen extends StatelessWidget {
+//   const HRDashboardScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         SingleChildScrollView(
+//           child: Padding(
+//             padding: const EdgeInsets.all(16.0),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Container(
+//                   width: double.infinity,
+//                   decoration: BoxDecoration(
+//                     color: const Color.fromARGB(255, 0, 0, 0),
+//                     borderRadius: BorderRadius.circular(24),
+//                   ),
+//                   padding: const EdgeInsets.all(32),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: const [
+//                       Text(
+//                         'HR',
+//                         style: TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 32,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 16),
+//                       Text(
+//                         'Total Employees',
+//                         style: TextStyle(
+//                           color: Color(0xFF666666),
+//                           fontSize: 16,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Text(
+//                         '255',
+//                         style: TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 48,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 const SizedBox(height: 24),
+//                 _buildMetricCard(
+//                   icon: Icons.account_balance_wallet_outlined,
+//                   title: 'Payroll Due',
+//                   value: '\$100K',
+//                 ),
+//                 const SizedBox(height: 16),
+//                 _buildMetricCard(
+//                   icon: Icons.event_note_outlined,
+//                   title: 'Leave Request',
+//                   value: '10',
+//                 ),
+//                 const SizedBox(height: 16),
+//                 _buildMetricCard(
+//                   icon: Icons.business_center_outlined,
+//                   title: 'Employees on site',
+//                   value: '200',
+//                 ),
+//                 const SizedBox(height: 16),
+//                 _buildMetricCard(
+//                   icon: Icons.person_outline_outlined,
+//                   title: 'Employees on Leave',
+//                   value: '50',
+//                 ),
+//                 const SizedBox(height: 80),
+//               ],
+//             ),
+//           ),
+//         ),
+//         ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
+//       ],
 //     );
 //   }
 
@@ -260,9 +247,39 @@
 //   }
 // }
 
+// class TeamScreen extends StatelessWidget {
+//   const TeamScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Text(
+//         'Team Screen',
+//         style: TextStyle(color: Colors.white, fontSize: 24),
+//       ),
+//     );
+//   }
+// }
+
+// class NotificationsScreen extends StatelessWidget {
+//   const NotificationsScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Text(
+//         'Notifications Screen',
+//         style: TextStyle(color: Colors.white, fontSize: 24),
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../hrDashboard/hrLeave.dart'; // Import the LeaveScreen
+import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
+import 'widgets/employeesNav/employeesNav.dart'; // Import the EmployeesNav widget
 
 class HRDashboard extends StatefulWidget {
   const HRDashboard({Key? key}) : super(key: key);
@@ -276,7 +293,7 @@ class _HRDashboardState extends State<HRDashboard> {
 
   final List<Widget> _screens = [
     const HRDashboardScreen(),
-    const TeamScreen(), // Placeholder for Team screen
+    const EmployeesNav(), // Add EmployeesNav screen
     const LeaveScreen(),
     const NotificationsScreen(), // Placeholder for Notifications screen
   ];
@@ -331,7 +348,7 @@ class _HRDashboardState extends State<HRDashboard> {
                         ),
                       )
                       : const Icon(Icons.group_outlined, size: 24),
-              label: 'Team',
+              label: 'Employees',
             ),
             BottomNavigationBarItem(
               icon:
@@ -413,7 +430,7 @@ class HRDashboardScreen extends StatelessWidget {
                       Text(
                         '255',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFFB0AFFF),
                           fontSize: 48,
                           fontWeight: FontWeight.w500,
                         ),
@@ -450,36 +467,7 @@ class HRDashboardScreen extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          bottom: 80,
-          right: 20,
-          child: GestureDetector(
-            onTap: () {
-              // Handle chatbot tap
-            },
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle,
-              ),
-              child: Container(
-                margin: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: const Icon(
-                  Icons.chat_bubble_outline,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ),
-          ),
-        ),
+        ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
       ],
     );
   }

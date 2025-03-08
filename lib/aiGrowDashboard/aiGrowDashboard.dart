@@ -21,7 +21,8 @@
 
 //     _scrollController.addListener(() {
 //       if (!_userScrolling) {
-//         if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+//         if (_scrollController.position.pixels ==
+//             _scrollController.position.maxScrollExtent) {
 //           setState(() => _isScrollingForward = false);
 //         } else if (_scrollController.position.pixels == 0) {
 //           setState(() => _isScrollingForward = true);
@@ -40,12 +41,16 @@
 
 //         if (_isScrollingForward) {
 //           final double newScroll = currentScroll + delta;
-//           if (newScroll <= maxScroll) {
+//           if (newScroll >= maxScroll) {
+//             _scrollController.jumpTo(0);
+//           } else {
 //             _scrollController.jumpTo(newScroll);
 //           }
 //         } else {
 //           final double newScroll = currentScroll - delta;
-//           if (newScroll >= 0) {
+//           if (newScroll <= 0) {
+//             _scrollController.jumpTo(maxScroll);
+//           } else {
 //             _scrollController.jumpTo(newScroll);
 //           }
 //         }
@@ -74,7 +79,7 @@
 //                     width: double.infinity,
 //                     padding: const EdgeInsets.all(24.0),
 //                     decoration: BoxDecoration(
-//                       color: const Color(0xFF1A1A1A),
+//                       color: const Color.fromARGB(255, 0, 0, 0),
 //                       borderRadius: BorderRadius.circular(16),
 //                     ),
 //                     margin: const EdgeInsets.all(16.0),
@@ -109,7 +114,6 @@
 //                       ],
 //                     ),
 //                   ),
-
 //                   Container(
 //                     height: 150,
 //                     child: GestureDetector(
@@ -164,7 +168,6 @@
 //                       ),
 //                     ),
 //                   ),
-
 //                   Container(
 //                     width: double.infinity,
 //                     margin: const EdgeInsets.all(16.0),
@@ -189,20 +192,78 @@
 //                 ],
 //               ),
 //             ),
+//             Positioned(
+//               bottom: 20,
+//               right: 20,
+//               child: GestureDetector(
+//                 onTap: () {
+//                   // Handle chatbot tap
+//                 },
+//                 child: Container(
+//                   width: 60,
+//                   height: 60,
+//                   decoration: const BoxDecoration(
+//                     color: Colors.black,
+//                     shape: BoxShape.circle,
+//                   ),
+//                   child: Container(
+//                     margin: const EdgeInsets.all(2),
+//                     decoration: BoxDecoration(
+//                       color: Colors.black,
+//                       shape: BoxShape.circle,
+//                       border: Border.all(color: Colors.white, width: 2),
+//                     ),
+//                     child: const Icon(
+//                       Icons.chat_bubble_outline,
+//                       color: Colors.white,
+//                       size: 30,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
 //           ],
 //         ),
 //       ),
-//       bottomNavigationBar: BottomNavigationBar(
-//         backgroundColor: Colors.black,
-//         unselectedItemColor: Colors.grey,
-//         selectedItemColor: Colors.white,
-//         type: BottomNavigationBarType.fixed,
-//         items: const [
-//           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-//           BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
-//           BottomNavigationBarItem(icon: Icon(Icons.send), label: ''),
-//           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
-//         ],
+//       bottomNavigationBar: Theme(
+//         data: ThemeData(
+//           splashColor: Colors.transparent,
+//           highlightColor: Colors.transparent,
+//         ),
+//         child: BottomNavigationBar(
+//           backgroundColor: Colors.black,
+//           selectedItemColor: Colors.white,
+//           unselectedItemColor: const Color(0xFF666666),
+//           type: BottomNavigationBarType.fixed,
+//           currentIndex: 0,
+//           onTap: (index) {
+//             if (index == 0) {
+//               Navigator.pop(context);
+//             }
+//           },
+//           items: const [
+//             BottomNavigationBarItem(
+//               icon: CircleAvatar(
+//                 backgroundColor: Colors.white,
+//                 radius: 24,
+//                 child: Icon(Icons.home_outlined, color: Colors.black, size: 20),
+//               ),
+//               label: '',
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.people_outline, size: 24),
+//               label: '',
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.send_outlined, size: 24),
+//               label: '',
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.notifications_outlined, size: 24),
+//               label: '',
+//             ),
+//           ],
+//         ),
 //       ),
 //     );
 //   }
@@ -266,10 +327,7 @@
 //           const SizedBox(width: 16),
 //           Text(
 //             title,
-//             style: const TextStyle(
-//               color: Colors.white,
-//               fontSize: 18,
-//             ),
+//             style: const TextStyle(color: Colors.white, fontSize: 18),
 //           ),
 //           const Spacer(),
 //           Text(
@@ -288,6 +346,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 class AIGrowDashboard extends StatefulWidget {
   const AIGrowDashboard({Key? key}) : super(key: key);
@@ -394,7 +453,7 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
                         Text(
                           '\$10M',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xFFB0AFFF),
                             fontSize: 48,
                             fontWeight: FontWeight.bold,
                           ),
@@ -480,36 +539,7 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
                 ],
               ),
             ),
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: GestureDetector(
-                onTap: () {
-                  // Handle chatbot tap
-                },
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
           ],
         ),
       ),

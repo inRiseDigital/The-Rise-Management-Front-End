@@ -4,6 +4,10 @@
 // import '../aiGrowDashboard/aiGrowDashboard.dart';
 // import '../cctvDashboard/cctvDashboard.dart';
 // import '../inventoryDashboard/inventoryDashboard.dart';
+// import '../procurmentDashboard/procurmentDashboard.dart';
+// import '../cleaningDashboard/cleaningDashboard.dart';
+// import '../kitchenDashboard/kitchenDashboard.dart';
+// import '../constructionDashboard/constructionDashboard.dart';
 
 // class DashboardOverview extends StatefulWidget {
 //   final String username;
@@ -199,29 +203,71 @@
 //                         Icons.trending_up,
 //                         true,
 //                       ),
-//                       _buildDepartmentCard(
-//                         'Procurement',
-//                         'Automate purchase order creation...',
-//                         Icons.shopping_cart,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder:
+//                                   (context) => const ProcurementDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'Procurement',
+//                           'Automate purchase order creation...',
+//                           Icons.shopping_cart,
+//                           true,
+//                         ),
 //                       ),
-//                       _buildDepartmentCard(
-//                         'Cleaning and Maintenance',
-//                         'Schedule and track cleaning tasks...',
-//                         Icons.cleaning_services,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const CleaningDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'Cleaning and Maintenance',
+//                           'Schedule and track cleaning tasks...',
+//                           Icons.cleaning_services,
+//                           true,
+//                         ),
 //                       ),
-//                       _buildDepartmentCard(
-//                         'Kitchen Management',
-//                         'Track food inventory, expiration dates...',
-//                         Icons.restaurant,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const KitchenDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'Kitchen Management',
+//                           'Track food inventory, expiration dates...',
+//                           Icons.restaurant,
+//                           true,
+//                         ),
 //                       ),
-//                       _buildDepartmentCard(
-//                         'Construction Management',
-//                         'Monitor ongoing projects, track milestones...',
-//                         Icons.construction,
-//                         true,
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder:
+//                                   (context) => const ConstructionDashboard(),
+//                             ),
+//                           );
+//                         },
+//                         child: _buildDepartmentCard(
+//                           'Construction Management',
+//                           'Monitor ongoing projects, track milestones...',
+//                           Icons.construction,
+//                           true,
+//                         ),
 //                       ),
 //                     ],
 //                   ),
@@ -229,7 +275,7 @@
 //               ],
 //             ),
 //             Positioned(
-//               bottom: 80,
+//               bottom: 20,
 //               right: 20,
 //               child: GestureDetector(
 //                 onTap: () {
@@ -427,6 +473,7 @@ import '../procurmentDashboard/procurmentDashboard.dart';
 import '../cleaningDashboard/cleaningDashboard.dart';
 import '../kitchenDashboard/kitchenDashboard.dart';
 import '../constructionDashboard/constructionDashboard.dart';
+import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 class DashboardOverview extends StatefulWidget {
   final String username;
@@ -693,36 +740,7 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                 ),
               ],
             ),
-            Positioned(
-              bottom: 80,
-              right: 20,
-              child: GestureDetector(
-                onTap: () {
-                  // Handle chatbot tap
-                },
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
           ],
         ),
       ),

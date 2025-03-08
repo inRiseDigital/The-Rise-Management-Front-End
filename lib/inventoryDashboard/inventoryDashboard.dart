@@ -1,4 +1,5 @@
 // import 'package:flutter/material.dart';
+// import 'dart:ui' as ui;
 
 // class InventoryDashboard extends StatefulWidget {
 //   const InventoryDashboard({Key? key}) : super(key: key);
@@ -229,7 +230,12 @@
 //             child: ListView.builder(
 //               itemCount: 2,
 //               itemBuilder: (context, index) {
-//                 return _buildStockItemCard('Office Supplies', '50');
+//                 return Column(
+//                   children: [
+//                     _buildStockItemCard('Office Supplies', '50'),
+//                     const SizedBox(height: 16), // Add vertical spacing
+//                   ],
+//                 );
 //               },
 //             ),
 //           ),
@@ -250,12 +256,12 @@
 //         children: [
 //           Row(
 //             children: [
+//               Icon(icon, color: Colors.white, size: 24),
+//               const SizedBox(width: 8),
 //               Text(
 //                 title,
 //                 style: const TextStyle(color: Colors.white, fontSize: 16),
 //               ),
-//               const Spacer(),
-//               Icon(icon, color: Colors.white),
 //             ],
 //           ),
 //           const SizedBox(height: 8),
@@ -273,31 +279,45 @@
 //   }
 
 //   Widget _buildStockItemCard(String title, String quantity) {
-//     return Container(
-//       margin: const EdgeInsets.symmetric(vertical: 8.0),
-//       padding: const EdgeInsets.all(16.0),
-//       decoration: BoxDecoration(
-//         color: const Color(0xFF3A3A3A),
-//         borderRadius: BorderRadius.circular(16),
-//       ),
-//       child: Row(
-//         children: [
-//           const Icon(Icons.inventory, color: Colors.white),
-//           const SizedBox(width: 16),
-//           Text(
-//             title,
-//             style: const TextStyle(color: Colors.white, fontSize: 16),
+//     return ClipRRect(
+//       borderRadius: BorderRadius.circular(20),
+//       child: BackdropFilter(
+//         filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+//         child: Container(
+//           width: double.infinity,
+//           decoration: BoxDecoration(
+//             color: Colors.white.withOpacity(0.1),
+//             borderRadius: BorderRadius.circular(20),
 //           ),
-//           const Spacer(),
-//           Text(
-//             quantity,
-//             style: const TextStyle(
-//               color: Colors.white,
-//               fontSize: 16,
-//               fontWeight: FontWeight.bold,
-//             ),
+//           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   const Icon(Icons.inventory, color: Colors.white, size: 24),
+//                   const SizedBox(width: 8),
+//                   Text(
+//                     title,
+//                     style: const TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 18,
+//                       fontWeight: FontWeight.w400,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               Text(
+//                 quantity,
+//                 style: const TextStyle(
+//                   color: Colors.white,
+//                   fontSize: 24,
+//                   fontWeight: FontWeight.w500,
+//                 ),
+//               ),
+//             ],
 //           ),
-//         ],
+//         ),
 //       ),
 //     );
 //   }
@@ -358,8 +378,10 @@
 //     );
 //   }
 // }
+
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 class InventoryDashboard extends StatefulWidget {
   const InventoryDashboard({Key? key}) : super(key: key);
@@ -387,36 +409,7 @@ class _InventoryDashboardState extends State<InventoryDashboard> {
         child: Stack(
           children: [
             _screens[_selectedIndex],
-            Positioned(
-              bottom: 80,
-              right: 20,
-              child: GestureDetector(
-                onTap: () {
-                  // Handle chatbot tap
-                },
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
           ],
         ),
       ),

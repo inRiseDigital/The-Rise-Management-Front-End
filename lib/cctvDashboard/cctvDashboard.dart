@@ -511,6 +511,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 class CCTVDashboard extends StatelessWidget {
   const CCTVDashboard({Key? key}) : super(key: key);
@@ -561,38 +562,18 @@ class CCTVDashboard extends StatelessWidget {
                             'Main Gate',
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           ),
-                          Row(
-                            children: [
-                              // Chat button
-                              Container(
-                                width: 30,
-                                height: 30,
-                                margin: const EdgeInsets.only(right: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Icon(
-                                  Icons.chat_bubble_outline,
-                                  color: Colors.white,
-                                  size: 18,
-                                ),
-                              ),
-                              // Fullscreen button
-                              Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Icon(
-                                  Icons.fullscreen,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
-                            ],
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: const Icon(
+                              Icons.fullscreen,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
                         ],
                       ),
@@ -686,6 +667,7 @@ class CCTVDashboard extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: ChatBotIcon(), // Add the ChatBotIcon widget
     );
   }
 
@@ -716,24 +698,6 @@ class CCTVDashboard extends StatelessWidget {
               );
             },
           ),
-          // Chat button overlay at bottom-right
-          Positioned(
-            right: 10,
-            bottom: 45, // Position above the title bar
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
-          ),
           Positioned(
             left: 0,
             right: 0,
@@ -749,38 +713,18 @@ class CCTVDashboard extends StatelessWidget {
                     title,
                     style: const TextStyle(color: Colors.white, fontSize: 14),
                   ),
-                  Row(
-                    children: [
-                      // Chat button in the bottom bar
-                      Container(
-                        width: 24,
-                        height: 24,
-                        margin: const EdgeInsets.only(right: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(
-                          Icons.chat_bubble_outline,
-                          color: Colors.white,
-                          size: 14,
-                        ),
-                      ),
-                      // Fullscreen button
-                      Container(
-                        width: 24,
-                        height: 24,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(
-                          Icons.fullscreen,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                      ),
-                    ],
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.fullscreen,
+                      color: Colors.white,
+                      size: 16,
+                    ),
                   ),
                 ],
               ),

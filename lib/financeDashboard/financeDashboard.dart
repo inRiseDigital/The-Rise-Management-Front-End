@@ -71,7 +71,7 @@
 //                     width: double.infinity,
 //                     padding: const EdgeInsets.all(24.0),
 //                     decoration: BoxDecoration(
-//                       color: Colors.white.withOpacity(0.1),
+//                       color: const Color(0xFFABABAB),
 //                       borderRadius: BorderRadius.circular(20),
 //                     ),
 //                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -81,7 +81,7 @@
 //                         const Text(
 //                           'Spent Budget',
 //                           style: TextStyle(
-//                             color: Colors.white,
+//                             color: Colors.black,
 //                             fontSize: 24,
 //                             fontWeight: FontWeight.w500,
 //                           ),
@@ -93,7 +93,7 @@
 //                             const Text(
 //                               '\$29k',
 //                               style: TextStyle(
-//                                 color: Colors.white,
+//                                 color: Colors.black,
 //                                 fontSize: 36,
 //                                 fontWeight: FontWeight.w500,
 //                               ),
@@ -195,16 +195,49 @@
 //                       : const Icon(Icons.description_outlined, size: 24),
 //               label: 'Overview',
 //             ),
-//             const BottomNavigationBarItem(
-//               icon: Icon(Icons.pie_chart_outline, size: 24),
+//             BottomNavigationBarItem(
+//               icon:
+//                   _selectedIndex == 1
+//                       ? const CircleAvatar(
+//                         backgroundColor: Colors.white,
+//                         radius: 24,
+//                         child: Icon(
+//                           Icons.pie_chart_outline,
+//                           color: Colors.black,
+//                           size: 20,
+//                         ),
+//                       )
+//                       : const Icon(Icons.pie_chart_outline, size: 24),
 //               label: 'Budget',
 //             ),
-//             const BottomNavigationBarItem(
-//               icon: Icon(Icons.credit_card_outlined, size: 24),
+//             BottomNavigationBarItem(
+//               icon:
+//                   _selectedIndex == 2
+//                       ? const CircleAvatar(
+//                         backgroundColor: Colors.white,
+//                         radius: 24,
+//                         child: Icon(
+//                           Icons.credit_card_outlined,
+//                           color: Colors.black,
+//                           size: 20,
+//                         ),
+//                       )
+//                       : const Icon(Icons.credit_card_outlined, size: 24),
 //               label: 'Monitoring',
 //             ),
-//             const BottomNavigationBarItem(
-//               icon: Icon(Icons.hourglass_empty, size: 24),
+//             BottomNavigationBarItem(
+//               icon:
+//                   _selectedIndex == 3
+//                       ? const CircleAvatar(
+//                         backgroundColor: Colors.white,
+//                         radius: 24,
+//                         child: Icon(
+//                           Icons.hourglass_empty,
+//                           color: Colors.black,
+//                           size: 20,
+//                         ),
+//                       )
+//                       : const Icon(Icons.hourglass_empty, size: 24),
 //               label: 'Allocation',
 //             ),
 //           ],
@@ -254,6 +287,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 class FinanceDashboard extends StatefulWidget {
   const FinanceDashboard({Key? key}) : super(key: key);
@@ -311,7 +345,7 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
                           '\$10M',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xFFB0AFFF),
                             fontSize: 48,
                             fontWeight: FontWeight.w500,
                           ),
@@ -382,36 +416,7 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
                 ],
               ),
             ),
-            Positioned(
-              bottom: 80,
-              right: 20,
-              child: GestureDetector(
-                onTap: () {
-                  // Handle chatbot tap
-                },
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
           ],
         ),
       ),

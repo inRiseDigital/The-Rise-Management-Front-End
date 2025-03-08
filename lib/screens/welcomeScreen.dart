@@ -171,7 +171,7 @@
 //                                 fontSize: 42,
 //                                 fontWeight: FontWeight.w800,
 //                                 letterSpacing: 6.0,
-//                                 fontFamily: 'SignPainterMedium', // Custom font
+//                                 fontFamily: 'SignPainterMedium',
 //                                 height: 0.9,
 //                               ),
 //                             ),
@@ -182,7 +182,7 @@
 //                                 fontSize: 42,
 //                                 fontWeight: FontWeight.w800,
 //                                 letterSpacing: 6.0,
-//                                 fontFamily: 'SignPainterMedium', // Custom font
+//                                 fontFamily: 'SignPainterMedium',
 //                                 height: 0.9,
 //                               ),
 //                             ),
@@ -390,7 +390,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                 fontSize: 42,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 6.0,
-                                fontFamily: 'Helvetica',
+                                fontFamily: 'BLKCHCRY', // Custom font
                                 height: 0.9,
                               ),
                             ),
@@ -401,7 +401,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                 fontSize: 42,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 6.0,
-                                fontFamily: 'Helvetica',
+                                fontFamily: 'BLKCHCRY', // Custom font
                                 height: 0.9,
                               ),
                             ),

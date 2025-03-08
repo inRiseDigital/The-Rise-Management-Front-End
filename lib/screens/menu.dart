@@ -1,17 +1,309 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_application_1/aiGrowDashboard/aiGrowDashboard.dart';
+// import 'package:provider/provider.dart';
+// import '../widgets/theme_notifier.dart';
+// import '../financeDashboard/financeDashboard.dart';
+// import '../hrDashboard/hrDashboard.dart';
+// import '../aiGrowDashboard/aiGrowDashboard.dart';
+// import './marketing.dart';
+// import '../cctvDashboard/cctvDashboard.dart';
+// import '../procurmentDashboard/procurmentDashboard.dart';
+// import '../inventoryDashboard/inventoryDashboard.dart';
+// import '../cleaningDashboard/cleaningDashboard.dart';
+// import '../constructionDashboard/constructionDashboard.dart';
+// import '../kitchenDashboard/kitchenDashboard.dart';
+// import 'mainChat.dart'; // Import the MainChat screen
+
+// class MenuDrawer extends StatelessWidget {
+//   const MenuDrawer({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return LayoutBuilder(
+//       builder: (context, constraints) {
+//         double drawerWidth = constraints.maxWidth * 0.75;
+//         return SizedBox(
+//           width: drawerWidth.clamp(250, 400),
+//           child: Drawer(
+//             backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
+//             child: SafeArea(
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Padding(
+//                     padding: const EdgeInsets.all(16.0),
+//                     child: ElevatedButton(
+//                       onPressed: () {
+//                         // In a real application, retrieve the logged-in user's access token.
+//                         // For demonstration, we are using a dummy token.
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder:
+//                                 (context) => ChatScreen(
+//                                   accessToken: 'dummy_access_token',
+//                                 ),
+//                           ),
+//                         );
+//                       },
+//                       style: ElevatedButton.styleFrom(
+//                         shape: RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.circular(25),
+//                           side: BorderSide(
+//                             color: Theme.of(context).dividerColor,
+//                             width: 1.5,
+//                           ),
+//                         ),
+//                         minimumSize: const Size(double.infinity, 40),
+//                         padding: EdgeInsets.zero,
+//                       ),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           Icon(
+//                             Icons.add,
+//                             color: Theme.of(context).iconTheme.color,
+//                           ),
+//                           const SizedBox(width: 8),
+//                           Text(
+//                             'New Chat',
+//                             style: TextStyle(
+//                               color:
+//                                   Theme.of(context).textTheme.bodyLarge?.color,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Expanded(
+//                     child: ListView(
+//                       padding: EdgeInsets.zero,
+//                       children: _menuItems(context),
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.all(16.0),
+//                     child: ElevatedButton(
+//                       onPressed: () {},
+//                       style: ElevatedButton.styleFrom(
+//                         shape: RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.circular(25),
+//                           side: BorderSide(
+//                             color: Theme.of(context).dividerColor,
+//                             width: 1.5,
+//                           ),
+//                         ),
+//                         minimumSize: const Size(double.infinity, 40),
+//                         padding: EdgeInsets.zero,
+//                       ),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           Icon(
+//                             Icons.history,
+//                             color: Theme.of(context).iconTheme.color,
+//                           ),
+//                           const SizedBox(width: 8),
+//                           Text(
+//                             'Chat History',
+//                             style: TextStyle(
+//                               color:
+//                                   Theme.of(context).textTheme.bodyLarge?.color,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Column(
+//                     children: [
+//                       Divider(
+//                         color: Theme.of(context).dividerColor,
+//                         thickness: 1,
+//                       ),
+//                       _buildMenuItem(
+//                         context,
+//                         Icons.delete_outline,
+//                         'Clear Conversation',
+//                         null,
+//                       ),
+//                       _buildMenuItem(
+//                         context,
+//                         Provider.of<ThemeNotifier>(context).isDarkMode
+//                             ? Icons.light_mode_outlined
+//                             : Icons.dark_mode_outlined,
+//                         Provider.of<ThemeNotifier>(context).isDarkMode
+//                             ? 'Light Mode'
+//                             : 'Dark Mode',
+//                         () {
+//                           Provider.of<ThemeNotifier>(
+//                             context,
+//                             listen: false,
+//                           ).toggleTheme();
+//                         },
+//                       ),
+//                       _buildMenuItem(
+//                         context,
+//                         Icons.logout_outlined,
+//                         'Log out',
+//                         null,
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+
+//   List<Widget> _menuItems(BuildContext context) {
+//     return [
+//       _buildMenuItem(context, Icons.people_outline, 'HR (Human Resources)', () {
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => HRDashboard()),
+//         );
+//       }),
+//       _buildMenuItem(
+//         context,
+//         Icons.account_balance_outlined,
+//         'Finance & Accounting',
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const FinanceDashboard()),
+//           );
+//         },
+//       ),
+//       _buildMenuItem(
+//         context,
+//         Icons.local_florist_outlined,
+//         'AI Grow (Smart Agriculture)',
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const AIGrowDashboard()),
+//           );
+//         },
+//       ),
+//       // _buildMenuItem(context, Icons.computer_outlined, 'IT Department', () {
+//       //   Navigator.pushReplacement(
+//       //     context,
+//       //     MaterialPageRoute(builder: (context) => const ITScreen()),
+//       //   );
+//       // }),
+//       _buildMenuItem(
+//         context,
+//         Icons.trending_up_outlined,
+//         'Sales & Marketing',
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const MarketingScreen()),
+//           );
+//         },
+//       ),
+//       _buildMenuItem(context, Icons.security_outlined, 'CCTV & Security', () {
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => const CCTVDashboard()),
+//         );
+//       }),
+//       _buildMenuItem(context, Icons.shopping_cart_outlined, 'Procurement', () {
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => const ProcurementDashboard()),
+//         );
+//       }),
+//       _buildMenuItem(
+//         context,
+//         Icons.inventory_2_outlined,
+//         'Inventory Management',
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const InventoryDashboard()),
+//           );
+//         },
+//       ),
+//       _buildMenuItem(
+//         context,
+//         Icons.cleaning_services_outlined,
+//         'Cleaning & Maintenance',
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const CleaningDashboard()),
+//           );
+//         },
+//       ),
+//       _buildMenuItem(
+//         context,
+//         Icons.restaurant_outlined,
+//         'Kitchen & Food governance',
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(builder: (context) => const KitchenDashboard()),
+//           );
+//         },
+//       ),
+//       _buildMenuItem(
+//         context,
+//         Icons.construction_outlined,
+//         'Construction Management',
+//         () {
+//           Navigator.pushReplacement(
+//             context,
+//             MaterialPageRoute(
+//               builder: (context) => const ConstructionDashboard(),
+//             ),
+//           );
+//         },
+//       ),
+//     ];
+//   }
+
+//   Widget _buildMenuItem(
+//     BuildContext context,
+//     IconData icon,
+//     String text,
+//     VoidCallback? onTap,
+//   ) {
+//     return ListTile(
+//       leading: Icon(icon, color: Theme.of(context).iconTheme.color, size: 20),
+//       title: Text(
+//         text,
+//         style: TextStyle(
+//           color: Theme.of(context).textTheme.bodyLarge?.color,
+//           fontSize: 14,
+//         ),
+//       ),
+//       onTap: onTap,
+//       dense: true,
+//       visualDensity: const VisualDensity(vertical: -2),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/aiGrowDashboard/aiGrowDashboard.dart';
 import 'package:provider/provider.dart';
 import '../widgets/theme_notifier.dart';
-import 'finance.dart';
-import 'hr.dart';
-import './aiGrow.dart';
-import './it.dart';
+import '../financeDashboard/financeDashboard.dart';
+import '../hrDashboard/hrDashboard.dart';
+import '../aiGrowDashboard/aiGrowDashboard.dart';
 import './marketing.dart';
-import './security.dart';
-import './procurement.dart';
-import './inventory.dart';
-import './cleaning.dart';
-import './construction.dart';
-import './kitchen.dart';
+import '../cctvDashboard/cctvDashboard.dart';
+import '../procurmentDashboard/procurmentDashboard.dart';
+import '../inventoryDashboard/inventoryDashboard.dart';
+import '../cleaningDashboard/cleaningDashboard.dart';
+import '../constructionDashboard/constructionDashboard.dart';
+import '../kitchenDashboard/kitchenDashboard.dart';
 import 'mainChat.dart'; // Import the MainChat screen
 
 class MenuDrawer extends StatelessWidget {
@@ -163,9 +455,9 @@ class MenuDrawer extends StatelessWidget {
   List<Widget> _menuItems(BuildContext context) {
     return [
       _buildMenuItem(context, Icons.people_outline, 'HR (Human Resources)', () {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HRScreen()),
+          MaterialPageRoute(builder: (context) => HRDashboard()),
         );
       }),
       _buildMenuItem(
@@ -173,9 +465,9 @@ class MenuDrawer extends StatelessWidget {
         Icons.account_balance_outlined,
         'Finance & Accounting',
         () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const FinanceScreen()),
+            MaterialPageRoute(builder: (context) => const FinanceDashboard()),
           );
         },
       ),
@@ -184,39 +476,33 @@ class MenuDrawer extends StatelessWidget {
         Icons.local_florist_outlined,
         'AI Grow (Smart Agriculture)',
         () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const AIGrowScreen()),
+            MaterialPageRoute(builder: (context) => const AIGrowDashboard()),
           );
         },
       ),
-      _buildMenuItem(context, Icons.computer_outlined, 'IT Department', () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const ITScreen()),
-        );
-      }),
       _buildMenuItem(
         context,
         Icons.trending_up_outlined,
         'Sales & Marketing',
         () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const MarketingScreen()),
           );
         },
       ),
       _buildMenuItem(context, Icons.security_outlined, 'CCTV & Security', () {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const SecurityScreen()),
+          MaterialPageRoute(builder: (context) => const CCTVDashboard()),
         );
       }),
       _buildMenuItem(context, Icons.shopping_cart_outlined, 'Procurement', () {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ProcurementScreen()),
+          MaterialPageRoute(builder: (context) => const ProcurementDashboard()),
         );
       }),
       _buildMenuItem(
@@ -224,9 +510,9 @@ class MenuDrawer extends StatelessWidget {
         Icons.inventory_2_outlined,
         'Inventory Management',
         () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const InventoryScreen()),
+            MaterialPageRoute(builder: (context) => const InventoryDashboard()),
           );
         },
       ),
@@ -235,9 +521,9 @@ class MenuDrawer extends StatelessWidget {
         Icons.cleaning_services_outlined,
         'Cleaning & Maintenance',
         () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CleaningScreen()),
+            MaterialPageRoute(builder: (context) => const CleaningDashboard()),
           );
         },
       ),
@@ -246,9 +532,9 @@ class MenuDrawer extends StatelessWidget {
         Icons.restaurant_outlined,
         'Kitchen & Food governance',
         () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const KitchenScreen()),
+            MaterialPageRoute(builder: (context) => const KitchenDashboard()),
           );
         },
       ),
@@ -257,9 +543,11 @@ class MenuDrawer extends StatelessWidget {
         Icons.construction_outlined,
         'Construction Management',
         () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ConstructionScreen()),
+            MaterialPageRoute(
+              builder: (context) => const ConstructionDashboard(),
+            ),
           );
         },
       ),
@@ -287,5 +575,3 @@ class MenuDrawer extends StatelessWidget {
     );
   }
 }
-
-

@@ -1,5 +1,4 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/aiGrowDashboard/aiGrowDashboard.dart';
 // import 'package:provider/provider.dart';
 // import '../widgets/theme_notifier.dart';
 // import '../financeDashboard/financeDashboard.dart';
@@ -13,6 +12,7 @@
 // import '../constructionDashboard/constructionDashboard.dart';
 // import '../kitchenDashboard/kitchenDashboard.dart';
 // import 'mainChat.dart'; // Import the MainChat screen
+// import 'login.dart'; // Import the LoginScreen
 
 // class MenuDrawer extends StatelessWidget {
 //   const MenuDrawer({super.key});
@@ -147,7 +147,16 @@
 //                         context,
 //                         Icons.logout_outlined,
 //                         'Log out',
-//                         null,
+//                         () {
+//                           // Perform logout actions here, such as clearing user data or tokens
+//                           Navigator.pushAndRemoveUntil(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const LoginScreen(),
+//                             ),
+//                             (Route<dynamic> route) => false,
+//                           );
+//                         },
 //                       ),
 //                     ],
 //                   ),
@@ -163,7 +172,7 @@
 //   List<Widget> _menuItems(BuildContext context) {
 //     return [
 //       _buildMenuItem(context, Icons.people_outline, 'HR (Human Resources)', () {
-//         Navigator.pushReplacement(
+//         Navigator.push(
 //           context,
 //           MaterialPageRoute(builder: (context) => HRDashboard()),
 //         );
@@ -173,7 +182,7 @@
 //         Icons.account_balance_outlined,
 //         'Finance & Accounting',
 //         () {
-//           Navigator.pushReplacement(
+//           Navigator.push(
 //             context,
 //             MaterialPageRoute(builder: (context) => const FinanceDashboard()),
 //           );
@@ -184,37 +193,31 @@
 //         Icons.local_florist_outlined,
 //         'AI Grow (Smart Agriculture)',
 //         () {
-//           Navigator.pushReplacement(
+//           Navigator.push(
 //             context,
 //             MaterialPageRoute(builder: (context) => const AIGrowDashboard()),
 //           );
 //         },
 //       ),
-//       // _buildMenuItem(context, Icons.computer_outlined, 'IT Department', () {
-//       //   Navigator.pushReplacement(
-//       //     context,
-//       //     MaterialPageRoute(builder: (context) => const ITScreen()),
-//       //   );
-//       // }),
 //       _buildMenuItem(
 //         context,
 //         Icons.trending_up_outlined,
 //         'Sales & Marketing',
 //         () {
-//           Navigator.pushReplacement(
+//           Navigator.push(
 //             context,
 //             MaterialPageRoute(builder: (context) => const MarketingScreen()),
 //           );
 //         },
 //       ),
 //       _buildMenuItem(context, Icons.security_outlined, 'CCTV & Security', () {
-//         Navigator.pushReplacement(
+//         Navigator.push(
 //           context,
 //           MaterialPageRoute(builder: (context) => const CCTVDashboard()),
 //         );
 //       }),
 //       _buildMenuItem(context, Icons.shopping_cart_outlined, 'Procurement', () {
-//         Navigator.pushReplacement(
+//         Navigator.push(
 //           context,
 //           MaterialPageRoute(builder: (context) => const ProcurementDashboard()),
 //         );
@@ -224,7 +227,7 @@
 //         Icons.inventory_2_outlined,
 //         'Inventory Management',
 //         () {
-//           Navigator.pushReplacement(
+//           Navigator.push(
 //             context,
 //             MaterialPageRoute(builder: (context) => const InventoryDashboard()),
 //           );
@@ -235,7 +238,7 @@
 //         Icons.cleaning_services_outlined,
 //         'Cleaning & Maintenance',
 //         () {
-//           Navigator.pushReplacement(
+//           Navigator.push(
 //             context,
 //             MaterialPageRoute(builder: (context) => const CleaningDashboard()),
 //           );
@@ -246,7 +249,7 @@
 //         Icons.restaurant_outlined,
 //         'Kitchen & Food governance',
 //         () {
-//           Navigator.pushReplacement(
+//           Navigator.push(
 //             context,
 //             MaterialPageRoute(builder: (context) => const KitchenDashboard()),
 //           );
@@ -257,7 +260,7 @@
 //         Icons.construction_outlined,
 //         'Construction Management',
 //         () {
-//           Navigator.pushReplacement(
+//           Navigator.push(
 //             context,
 //             MaterialPageRoute(
 //               builder: (context) => const ConstructionDashboard(),
@@ -291,7 +294,6 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/aiGrowDashboard/aiGrowDashboard.dart';
 import 'package:provider/provider.dart';
 import '../widgets/theme_notifier.dart';
 import '../financeDashboard/financeDashboard.dart';
@@ -305,6 +307,7 @@ import '../cleaningDashboard/cleaningDashboard.dart';
 import '../constructionDashboard/constructionDashboard.dart';
 import '../kitchenDashboard/kitchenDashboard.dart';
 import 'mainChat.dart'; // Import the MainChat screen
+import 'login.dart'; // Import the LoginScreen
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -439,7 +442,16 @@ class MenuDrawer extends StatelessWidget {
                         context,
                         Icons.logout_outlined,
                         'Log out',
-                        null,
+                        () {
+                          // Perform logout actions here, such as clearing user data or tokens
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                            (Route<dynamic> route) => false,
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -455,9 +467,14 @@ class MenuDrawer extends StatelessWidget {
   List<Widget> _menuItems(BuildContext context) {
     return [
       _buildMenuItem(context, Icons.people_outline, 'HR (Human Resources)', () {
+        // Retrieve the access token from the context or any other source
+        final accessToken =
+            'your_access_token_here'; // Replace with actual access token
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HRDashboard()),
+          MaterialPageRoute(
+            builder: (context) => HRDashboard(accessToken: accessToken),
+          ),
         );
       }),
       _buildMenuItem(

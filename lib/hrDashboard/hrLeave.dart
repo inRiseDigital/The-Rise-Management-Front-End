@@ -1,103 +1,13 @@
 // import 'package:flutter/material.dart';
 // import 'dart:ui'; // Import the dart:ui package for ImageFilter
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
+// import 'widgets/requestLeaveScreen.dart';
+// import 'widgets/viewAllLeavesScreen.dart';
+// import 'widgets/approveLeaveScreen.dart';
+// import 'widgets/updateLeaveScreen.dart';
+// import 'widgets/leavesByDateScreen.dart';
 
 // class LeaveScreen extends StatelessWidget {
 //   const LeaveScreen({Key? key}) : super(key: key);
-
-//   final String _baseUrl = 'https://game-parrot-trivially.ngrok-free.app/leaves';
-
-//   Future<void> _requestLeave(BuildContext context) async {
-//     // Implement request leave logic
-//     final response = await http.post(
-//       Uri.parse('$_baseUrl/request'),
-//       headers: {'Content-Type': 'application/json'},
-//       body: jsonEncode({'leave_type': 'sick', 'duration': '2 days'}),
-//     );
-
-//     if (response.statusCode == 200) {
-//       _showDialog(context, 'Success', 'Leave requested successfully.');
-//     } else {
-//       _showDialog(context, 'Error', 'Failed to request leave.');
-//     }
-//   }
-
-//   Future<void> _viewAllLeaves(BuildContext context) async {
-//     // Implement view all leaves logic
-//     final response = await http.get(
-//       Uri.parse(_baseUrl),
-//       headers: {'Content-Type': 'application/json'},
-//     );
-
-//     if (response.statusCode == 200) {
-//       final data = jsonDecode(response.body);
-//       _showDialog(context, 'All Leaves', data.toString());
-//     } else {
-//       _showDialog(context, 'Error', 'Failed to fetch leaves.');
-//     }
-//   }
-
-//   Future<void> _approveLeave(BuildContext context, String leaveId) async {
-//     // Implement approve leave logic
-//     final response = await http.put(
-//       Uri.parse('$_baseUrl/approve/$leaveId'),
-//       headers: {'Content-Type': 'application/json'},
-//     );
-
-//     if (response.statusCode == 200) {
-//       _showDialog(context, 'Success', 'Leave approved successfully.');
-//     } else {
-//       _showDialog(context, 'Error', 'Failed to approve leave.');
-//     }
-//   }
-
-//   Future<void> _updateLeave(BuildContext context, String leaveId) async {
-//     // Implement update leave logic
-//     final response = await http.put(
-//       Uri.parse('$_baseUrl/update/$leaveId'),
-//       headers: {'Content-Type': 'application/json'},
-//       body: jsonEncode({'leave_type': 'vacation', 'duration': '5 days'}),
-//     );
-
-//     if (response.statusCode == 200) {
-//       _showDialog(context, 'Success', 'Leave updated successfully.');
-//     } else {
-//       _showDialog(context, 'Error', 'Failed to update leave.');
-//     }
-//   }
-
-//   Future<void> _leavesByDate(BuildContext context, String queryDate) async {
-//     // Implement leaves by date logic
-//     final response = await http.get(
-//       Uri.parse('$_baseUrl/date/$queryDate'),
-//       headers: {'Content-Type': 'application/json'},
-//     );
-
-//     if (response.statusCode == 200) {
-//       final data = jsonDecode(response.body);
-//       _showDialog(context, 'Leaves on $queryDate', data.toString());
-//     } else {
-//       _showDialog(context, 'Error', 'Failed to fetch leaves by date.');
-//     }
-//   }
-
-//   void _showDialog(BuildContext context, String title, String message) {
-//     showDialog(
-//       context: context,
-//       builder:
-//           (context) => AlertDialog(
-//             title: Text(title),
-//             content: Text(message),
-//             actions: [
-//               TextButton(
-//                 onPressed: () => Navigator.pop(context),
-//                 child: const Text('OK'),
-//               ),
-//             ],
-//           ),
-//     );
-//   }
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -149,43 +59,66 @@
 //                 _buildActionButton(
 //                   context: context,
 //                   label: 'Request Leave',
-//                   onPressed: () => _requestLeave(context),
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                         builder: (context) => const RequestLeaveScreen(),
+//                       ),
+//                     );
+//                   },
 //                 ),
 //                 const SizedBox(height: 16),
 //                 _buildActionButton(
 //                   context: context,
 //                   label: 'View All Leaves',
-//                   onPressed: () => _viewAllLeaves(context),
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                         builder: (context) => const ViewAllLeavesScreen(),
+//                       ),
+//                     );
+//                   },
 //                 ),
 //                 const SizedBox(height: 16),
 //                 _buildActionButton(
 //                   context: context,
 //                   label: 'Approve Leave',
-//                   onPressed:
-//                       () => _approveLeave(
-//                         context,
-//                         'leave_id',
-//                       ), // Replace 'leave_id' with actual leave ID
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                         builder: (context) => const ApproveLeaveScreen(),
+//                       ),
+//                     );
+//                   },
 //                 ),
 //                 const SizedBox(height: 16),
 //                 _buildActionButton(
 //                   context: context,
 //                   label: 'Update Leave',
-//                   onPressed:
-//                       () => _updateLeave(
-//                         context,
-//                         'leave_id',
-//                       ), // Replace 'leave_id' with actual leave ID
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                         builder: (context) => const UpdateLeaveScreen(),
+//                       ),
+//                     );
+//                   },
 //                 ),
 //                 const SizedBox(height: 16),
 //                 _buildActionButton(
 //                   context: context,
 //                   label: 'Leaves By Date',
-//                   onPressed:
-//                       () => _leavesByDate(
-//                         context,
-//                         '2025-03-05',
-//                       ), // Replace '2025-03-05' with actual query date
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                         builder: (context) => const LeavesByDateScreen(),
+//                       ),
+//                     );
+//                   },
 //                 ),
 //                 const SizedBox(height: 80),
 //               ],
@@ -285,6 +218,16 @@ import 'widgets/viewAllLeavesScreen.dart';
 import 'widgets/approveLeaveScreen.dart';
 import 'widgets/updateLeaveScreen.dart';
 import 'widgets/leavesByDateScreen.dart';
+// import 'widgets/dailyUpdateScreen.dart'; // New widget for daily update
+
+// Endpoints used:
+// POST    /leaves/request           - Request Leave
+// GET     /leaves/{leave_id}         - Get Leave
+// GET     /leaves/                  - Get All Leaves
+// PUT     /leaves/update/{leave_id}   - Update Leave
+// PUT     /leaves/approve/{leave_id}  - Approve Leave
+// GET     /leaves/date/{query_date}   - Leaves By Date
+// POST    /leaves/daily_update/add    - Add Daily Update
 
 class LeaveScreen extends StatelessWidget {
   const LeaveScreen({Key? key}) : super(key: key);
@@ -400,6 +343,19 @@ class LeaveScreen extends StatelessWidget {
                     );
                   },
                 ),
+                // const SizedBox(height: 16),
+                // _buildActionButton(
+                //   context: context,
+                //   label: 'Add Daily Update',
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => const DailyUpdateScreen(),
+                //       ),
+                //     );
+                //   },
+                // ),
                 const SizedBox(height: 80),
               ],
             ),

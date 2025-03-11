@@ -15,6 +15,10 @@
 //   List<dynamic> _leaveRequests = [];
 //   bool _isLoading = false;
 
+//   // Bearer token added here:
+//   final String _bearerToken =
+//       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2ZWVuYXRodyIsInJvbGUiOiJIUiIsImVtYWlsIjoidmVlbmF0aHdAZ21haWwuY29tIiwic2Vzc2lvbl9pZCI6IjY4NGFmOWJhLTA2MDktNDA0Ny1hMDE5LWQ2NzUzMjA0OGY0OCIsImV4cCI6MTc0MTUxNTgxNX0.h_mFof1GLtO-sKSVZDzSHetq1KTIXXN5FVqhcjceueI';
+
 //   final TextEditingController _employeeIdController = TextEditingController();
 //   final TextEditingController _leaveTypeController = TextEditingController();
 //   final TextEditingController _reasonController = TextEditingController();
@@ -28,7 +32,10 @@
 
 //     final response = await http.post(
 //       Uri.parse(_baseUrl),
-//       headers: {'Content-Type': 'application/json'},
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': _bearerToken,
+//       },
 //       body: jsonEncode({
 //         'employee_id': int.parse(_employeeIdController.text),
 //         'leave_type': _leaveTypeController.text,
@@ -58,7 +65,10 @@
 //   Future<void> _fetchLeaveRequests() async {
 //     final response = await http.get(
 //       Uri.parse(_baseUrl),
-//       headers: {'Content-Type': 'application/json'},
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': _bearerToken,
+//       },
 //     );
 
 //     if (response.statusCode == 200) {
@@ -260,8 +270,10 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bearerToken.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import ''; // Import the bearer token
 
 class RequestLeaveScreen extends StatefulWidget {
   const RequestLeaveScreen({Key? key}) : super(key: key);
@@ -275,10 +287,6 @@ class _RequestLeaveScreenState extends State<RequestLeaveScreen> {
       'https://game-parrot-trivially.ngrok-free.app/leaves/request';
   List<dynamic> _leaveRequests = [];
   bool _isLoading = false;
-
-  // Bearer token added here:
-  final String _bearerToken =
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2ZWVuYXRodyIsInJvbGUiOiJIUiIsImVtYWlsIjoidmVlbmF0aHdAZ21haWwuY29tIiwic2Vzc2lvbl9pZCI6IjY4NGFmOWJhLTA2MDktNDA0Ny1hMDE5LWQ2NzUzMjA0OGY0OCIsImV4cCI6MTc0MTUxNTgxNX0.h_mFof1GLtO-sKSVZDzSHetq1KTIXXN5FVqhcjceueI';
 
   final TextEditingController _employeeIdController = TextEditingController();
   final TextEditingController _leaveTypeController = TextEditingController();
@@ -295,7 +303,7 @@ class _RequestLeaveScreenState extends State<RequestLeaveScreen> {
       Uri.parse(_baseUrl),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': _bearerToken,
+        'Authorization': bearerToken, // Use the imported bearer token
       },
       body: jsonEncode({
         'employee_id': int.parse(_employeeIdController.text),
@@ -328,7 +336,7 @@ class _RequestLeaveScreenState extends State<RequestLeaveScreen> {
       Uri.parse(_baseUrl),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': _bearerToken,
+        'Authorization': bearerToken, // Use the imported bearer token
       },
     );
 

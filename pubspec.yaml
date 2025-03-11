@@ -84,6 +84,7 @@ flutter:
     - lib/assets/images/constrctionProgressBar.png
     - lib\assets\images\chatBotIcon.png
 
+
   # fonts:
   #   - family: SignPainterMedium
   #     fonts:

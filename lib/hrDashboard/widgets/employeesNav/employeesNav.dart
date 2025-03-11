@@ -1,6 +1,9 @@
 // import 'dart:convert';
+// import 'dart:math'; // Needed for polar coordinate calculations
 // import 'package:flutter/material.dart';
+// import 'package:flutter_application_1/bearerToken.dart';
 // import 'package:http/http.dart' as http;
+// import ''; // Import the bearer token
 // import 'employeeProfile.dart'; // Import the EmployeeProfile screen
 // import 'newEmployee.dart'; // Import the NewEmployee screen
 
@@ -37,18 +40,55 @@
 //   }
 // }
 
-// class EmployeesNav extends StatelessWidget {
+// class EmployeesNav extends StatefulWidget {
 //   const EmployeesNav({Key? key}) : super(key: key);
 
+//   @override
+//   _EmployeesNavState createState() => _EmployeesNavState();
+// }
+
+// class _EmployeesNavState extends State<EmployeesNav>
+//     with SingleTickerProviderStateMixin {
+//   // Loader animation properties for custom circular loader effect
+//   late AnimationController _loaderController;
+//   final int _numDots = 5;
+//   final List<Color> _loaderColors = [
+//     const Color(0xFF4285F4), // Blue
+//     const Color(0xFFEA4335), // Red
+//     const Color(0xFFFBBC05), // Yellow
+//     const Color(0xFF34A853), // Green
+//     const Color(0xFF4285F4), // Blue (repeat)
+//   ];
+
+//   final TextEditingController _searchController = TextEditingController();
+//   List<Employee> _employees = [];
+//   List<Employee> _filteredEmployees = [];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _loaderController = AnimationController(
+//       vsync: this,
+//       duration: const Duration(milliseconds: 1000),
+//     )..repeat();
+//     _fetchEmployees();
+//   }
+
+//   @override
+//   void dispose() {
+//     _loaderController.dispose();
+//     _searchController.dispose();
+//     super.dispose();
+//   }
+
 //   // Function to fetch employees from the ngrok endpoint with debugging prints
-//   Future<List<Employee>> fetchEmployees() async {
+//   Future<void> _fetchEmployees() async {
 //     try {
 //       final response = await http.get(
 //         Uri.parse('https://game-parrot-trivially.ngrok-free.app/hr/employees'),
 //         headers: {
 //           "Content-Type": "application/json",
-//           "Authorization":
-//               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2ZWVuYXRodyIsInJvbGUiOiJIUiIsImVtYWlsIjoidmVlbmF0aHdAZ21haWwuY29tIiwic2Vzc2lvbl9pZCI6IjZkZDgxNTE3LTg0NDMtNDRjZS04MDBiLTlkMjM1MDNiYzcwMSIsImV4cCI6MTc0MTUxMjI0NX0.PvoG3moWOMmHk0z87KKvMTm6e6vvVedHoVIWuhk7rVs",
+//           "Authorization": bearerToken, // Use the imported bearer token
 //         },
 //       );
 
@@ -58,7 +98,10 @@
 
 //       if (response.statusCode == 200) {
 //         List<dynamic> jsonData = json.decode(response.body);
-//         return jsonData.map((item) => Employee.fromJson(item)).toList();
+//         setState(() {
+//           _employees = jsonData.map((item) => Employee.fromJson(item)).toList();
+//           _filteredEmployees = _employees;
+//         });
 //       } else {
 //         throw Exception(
 //           'Failed to load employees. Status code: ${response.statusCode}',
@@ -68,6 +111,23 @@
 //       print("Error fetching employees: $e");
 //       throw Exception('Failed to load employees: $e');
 //     }
+//   }
+
+//   void _filterEmployees(String query) {
+//     setState(() {
+//       _filteredEmployees =
+//           _employees
+//               .where(
+//                 (employee) =>
+//                     employee.employeeName.toLowerCase().contains(
+//                       query.toLowerCase(),
+//                     ) ||
+//                     employee.occupation.toLowerCase().contains(
+//                       query.toLowerCase(),
+//                     ),
+//               )
+//               .toList();
+//     });
 //   }
 
 //   @override
@@ -184,6 +244,8 @@
 //                   borderRadius: BorderRadius.circular(8),
 //                 ),
 //                 child: TextField(
+//                   controller: _searchController,
+//                   onChanged: _filterEmployees,
 //                   decoration: InputDecoration(
 //                     hintText: 'Search Employees ...',
 //                     hintStyle: const TextStyle(color: Color(0xFF3A3A3A)),
@@ -203,50 +265,35 @@
 //               const SizedBox(height: 16),
 //               // Expanded list of employees using FutureBuilder
 //               Expanded(
-//                 child: FutureBuilder<List<Employee>>(
-//                   future: fetchEmployees(),
-//                   builder: (context, snapshot) {
-//                     if (snapshot.connectionState == ConnectionState.waiting) {
-//                       return const Center(child: CircularProgressIndicator());
-//                     } else if (snapshot.hasError) {
-//                       return Center(
-//                         child: Text(
-//                           'Error: ${snapshot.error}',
-//                           style: const TextStyle(color: Colors.white),
+//                 child:
+//                     _filteredEmployees.isEmpty
+//                         ? const Center(
+//                           child: Text(
+//                             'No employees found',
+//                             style: TextStyle(color: Colors.white),
+//                           ),
+//                         )
+//                         : ListView.builder(
+//                           itemCount: _filteredEmployees.length,
+//                           itemBuilder: (context, index) {
+//                             final employee = _filteredEmployees[index];
+//                             return GestureDetector(
+//                               onTap: () {
+//                                 Navigator.push(
+//                                   context,
+//                                   MaterialPageRoute(
+//                                     builder:
+//                                         (context) => const EmployeeProfile(),
+//                                   ),
+//                                 );
+//                               },
+//                               child: _buildEmployeeCard(
+//                                 employee.employeeName,
+//                                 employee.occupation,
+//                               ),
+//                             );
+//                           },
 //                         ),
-//                       );
-//                     } else if (snapshot.hasData) {
-//                       final employees = snapshot.data!;
-//                       return ListView.builder(
-//                         itemCount: employees.length,
-//                         itemBuilder: (context, index) {
-//                           final employee = employees[index];
-//                           return GestureDetector(
-//                             onTap: () {
-//                               Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                   builder: (context) => const EmployeeProfile(),
-//                                 ),
-//                               );
-//                             },
-//                             child: _buildEmployeeCard(
-//                               employee.employeeName,
-//                               employee.occupation,
-//                             ),
-//                           );
-//                         },
-//                       );
-//                     } else {
-//                       return const Center(
-//                         child: Text(
-//                           'No data available',
-//                           style: TextStyle(color: Colors.white),
-//                         ),
-//                       );
-//                     }
-//                   },
-//                 ),
 //               ),
 //             ],
 //           ),

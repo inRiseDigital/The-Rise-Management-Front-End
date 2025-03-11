@@ -1,5 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'dart:async';
+// import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 // class AIGrowDashboard extends StatefulWidget {
 //   const AIGrowDashboard({Key? key}) : super(key: key);
@@ -106,7 +107,7 @@
 //                         Text(
 //                           '\$10M',
 //                           style: TextStyle(
-//                             color: Colors.white,
+//                             color: Color(0xFFB0AFFF),
 //                             fontSize: 48,
 //                             fontWeight: FontWeight.bold,
 //                           ),
@@ -192,36 +193,7 @@
 //                 ],
 //               ),
 //             ),
-//             Positioned(
-//               bottom: 20,
-//               right: 20,
-//               child: GestureDetector(
-//                 onTap: () {
-//                   // Handle chatbot tap
-//                 },
-//                 child: Container(
-//                   width: 60,
-//                   height: 60,
-//                   decoration: const BoxDecoration(
-//                     color: Colors.black,
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Container(
-//                     margin: const EdgeInsets.all(2),
-//                     decoration: BoxDecoration(
-//                       color: Colors.black,
-//                       shape: BoxShape.circle,
-//                       border: Border.all(color: Colors.white, width: 2),
-//                     ),
-//                     child: const Icon(
-//                       Icons.chat_bubble_outline,
-//                       color: Colors.white,
-//                       size: 30,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
+//             ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
 //           ],
 //         ),
 //       ),
@@ -347,6 +319,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
+import '../hrDashboard/hrDashboard.dart'; // Import the HRDashboard for navigation
 
 class AIGrowDashboard extends StatefulWidget {
   const AIGrowDashboard({Key? key}) : super(key: key);
@@ -360,6 +333,7 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
   Timer? _timer;
   bool _isScrollingForward = true;
   bool _userScrolling = false;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -410,6 +384,20 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const AIGrowDashboard()),
+      );
+    }
+    // Add other navigation actions if needed
   }
 
   @override
@@ -553,31 +541,67 @@ class _AIGrowDashboardState extends State<AIGrowDashboard> {
           selectedItemColor: Colors.white,
           unselectedItemColor: const Color(0xFF666666),
           type: BottomNavigationBarType.fixed,
-          currentIndex: 0,
-          onTap: (index) {
-            if (index == 0) {
-              Navigator.pop(context);
-            }
-          },
-          items: const [
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: [
             BottomNavigationBarItem(
-              icon: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 24,
-                child: Icon(Icons.home_outlined, color: Colors.black, size: 20),
-              ),
+              icon:
+                  _selectedIndex == 0
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.home_outlined,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.home_outlined, size: 24),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.people_outline, size: 24),
+              icon:
+                  _selectedIndex == 1
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.people_outline,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.people_outline, size: 24),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.send_outlined, size: 24),
+              icon:
+                  _selectedIndex == 2
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.send_outlined,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.send_outlined, size: 24),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_outlined, size: 24),
+              icon:
+                  _selectedIndex == 3
+                      ? const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 24,
+                        child: Icon(
+                          Icons.notifications_outlined,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      )
+                      : const Icon(Icons.notifications_outlined, size: 24),
               label: '',
             ),
           ],

@@ -1,5 +1,9 @@
 // import 'package:flutter/material.dart';
+// import 'package:flutter_application_1/financeDashboard/widgets/monitoringNav/monitoringNav.dart';
 // import 'dart:ui' as ui;
+// import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
+// import 'widgets/budgetNav.dart'; // Import the BudgetNav widget
+// import 'widgets/allocationNav/allocationNav.dart'; // Import the AllocationNav widget
 
 // class FinanceDashboard extends StatefulWidget {
 //   const FinanceDashboard({Key? key}) : super(key: key);
@@ -10,6 +14,30 @@
 
 // class _FinanceDashboardState extends State<FinanceDashboard> {
 //   int _selectedIndex = 0;
+
+//   final List<Widget> _screens = [
+//     const FinanceDashboard(),
+//     const BudgetNav(),
+//     const MonitoringNav(),
+//     const AllocationNav(),
+//   ];
+
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//     if (index == 1) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(builder: (context) => const BudgetNav()),
+//       );
+//     } else if (index == 3) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(builder: (context) => const AllocationNav()),
+//       );
+//     }
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -57,7 +85,7 @@
 //                           '\$10M',
 //                           textAlign: TextAlign.center,
 //                           style: TextStyle(
-//                             color: Colors.white,
+//                             color: Color(0xFFB0AFFF),
 //                             fontSize: 48,
 //                             fontWeight: FontWeight.w500,
 //                           ),
@@ -128,36 +156,7 @@
 //                 ],
 //               ),
 //             ),
-//             Positioned(
-//               bottom: 80,
-//               right: 20,
-//               child: GestureDetector(
-//                 onTap: () {
-//                   // Handle chatbot tap
-//                 },
-//                 child: Container(
-//                   width: 60,
-//                   height: 60,
-//                   decoration: const BoxDecoration(
-//                     color: Colors.black,
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Container(
-//                     margin: const EdgeInsets.all(2),
-//                     decoration: BoxDecoration(
-//                       color: Colors.black,
-//                       shape: BoxShape.circle,
-//                       border: Border.all(color: Colors.white, width: 2),
-//                     ),
-//                     child: const Icon(
-//                       Icons.chat_bubble_outline,
-//                       color: Colors.white,
-//                       size: 30,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
+//             ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
 //           ],
 //         ),
 //       ),
@@ -174,11 +173,7 @@
 //           currentIndex: _selectedIndex,
 //           showSelectedLabels: true,
 //           showUnselectedLabels: true,
-//           onTap: (index) {
-//             setState(() {
-//               _selectedIndex = index;
-//             });
-//           },
+//           onTap: _onItemTapped,
 //           items: [
 //             BottomNavigationBarItem(
 //               icon:
@@ -286,8 +281,12 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/financeDashboard/widgets/monitoringNav/monitoringNav.dart';
 import 'dart:ui' as ui;
 import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
+import 'widgets/budgetNav.dart'; // Import the BudgetNav widget
+import 'widgets/allocationNav/allocationNav.dart'; // Import the AllocationNav widget
+import 'widgets/financeNavigation.dart'; // Import the new FinanceNavigation widget
 
 class FinanceDashboard extends StatefulWidget {
   const FinanceDashboard({Key? key}) : super(key: key);
@@ -298,6 +297,30 @@ class FinanceDashboard extends StatefulWidget {
 
 class _FinanceDashboardState extends State<FinanceDashboard> {
   int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    const FinanceDashboard(),
+    const BudgetNav(),
+    const MonitoringNav(),
+    const AllocationNav(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const BudgetNav()),
+      );
+    } else if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const AllocationNav()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -416,91 +439,13 @@ class _FinanceDashboardState extends State<FinanceDashboard> {
                 ],
               ),
             ),
-            ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
+            ChatBotIcon(), // Existing ChatBotIcon remains
           ],
         ),
       ),
-      bottomNavigationBar: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: BottomNavigationBar(
-          backgroundColor: Colors.black,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: const Color(0xFF666666),
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon:
-                  _selectedIndex == 0
-                      ? const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 24,
-                        child: Icon(
-                          Icons.description_outlined,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                      )
-                      : const Icon(Icons.description_outlined, size: 24),
-              label: 'Overview',
-            ),
-            BottomNavigationBarItem(
-              icon:
-                  _selectedIndex == 1
-                      ? const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 24,
-                        child: Icon(
-                          Icons.pie_chart_outline,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                      )
-                      : const Icon(Icons.pie_chart_outline, size: 24),
-              label: 'Budget',
-            ),
-            BottomNavigationBarItem(
-              icon:
-                  _selectedIndex == 2
-                      ? const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 24,
-                        child: Icon(
-                          Icons.credit_card_outlined,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                      )
-                      : const Icon(Icons.credit_card_outlined, size: 24),
-              label: 'Monitoring',
-            ),
-            BottomNavigationBarItem(
-              icon:
-                  _selectedIndex == 3
-                      ? const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 24,
-                        child: Icon(
-                          Icons.hourglass_empty,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                      )
-                      : const Icon(Icons.hourglass_empty, size: 24),
-              label: 'Allocation',
-            ),
-          ],
-        ),
+      bottomNavigationBar: FinanceNavigation(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }

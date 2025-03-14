@@ -1,5 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'dart:ui' as ui;
+// import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
 
 // class KitchenDashboard extends StatefulWidget {
 //   const KitchenDashboard({Key? key}) : super(key: key);
@@ -27,36 +28,7 @@
 //         child: Stack(
 //           children: [
 //             _screens[_selectedIndex],
-//             Positioned(
-//               bottom: 80,
-//               right: 20,
-//               child: GestureDetector(
-//                 onTap: () {
-//                   // Handle chatbot tap
-//                 },
-//                 child: Container(
-//                   width: 60,
-//                   height: 60,
-//                   decoration: const BoxDecoration(
-//                     color: Colors.black,
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Container(
-//                     margin: const EdgeInsets.all(2),
-//                     decoration: BoxDecoration(
-//                       color: Colors.black,
-//                       shape: BoxShape.circle,
-//                       border: Border.all(color: Colors.white, width: 2),
-//                     ),
-//                     child: const Icon(
-//                       Icons.chat_bubble_outline,
-//                       color: Colors.white,
-//                       size: 30,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
+//             ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
 //           ],
 //         ),
 //       ),
@@ -116,7 +88,7 @@
 //                         ),
 //                       )
 //                       : const Icon(Icons.storage, size: 24),
-//               label: 'Stock',
+//               label: 'Menu',
 //             ),
 //             BottomNavigationBarItem(
 //               icon:
@@ -384,10 +356,10 @@
 //     );
 //   }
 // }
-
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-import '../widgets/chatBotIcon.dart'; // Import the ChatBotIcon widget
+import '../widgets/chatBotIcon.dart';
+import './widgets//menuNav/menuNav.dart'; // Import the MenuNav widget
 
 class KitchenDashboard extends StatefulWidget {
   const KitchenDashboard({Key? key}) : super(key: key);
@@ -397,25 +369,57 @@ class KitchenDashboard extends StatefulWidget {
 }
 
 class _KitchenDashboardState extends State<KitchenDashboard> {
+  // We use three dashboard screens:
+  // Index 0: KitchenDashboardScreen
+  // Index 1: MaintenanceScreen
+  // Index 2: OrdersScreen
+  // The bottom navigation bar has 4 items. The middle (index 2) is reserved for Menu navigation.
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
     const KitchenDashboardScreen(),
-    const CategoriesScreen(),
     const MaintenanceScreen(),
-    const StockScreen(),
     const OrdersScreen(),
   ];
 
+  /// Handles taps on the bottom navigation items.
+  void _onItemTapped(int tappedIndex) {
+    // BottomNavigationBar items:
+    // 0: Categories (mapped to KitchenDashboardScreen)
+    // 1: Maintenance (mapped to MaintenanceScreen)
+    // 2: Menu (external navigation)
+    // 3: Orders (mapped to OrdersScreen)
+    if (tappedIndex == 2) {
+      // Navigate to the MenuNav screen when "Menu" is tapped.
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MenuNav()),
+      );
+    } else {
+      setState(() {
+        // Map bottom nav bar index to our _screens list.
+        // For items after the Menu (index 2), subtract one.
+        _selectedIndex = tappedIndex > 2 ? tappedIndex - 1 : tappedIndex;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Calculate the bottom navigation bar's current index.
+    // If _selectedIndex is 2 (OrdersScreen) then bottom nav index should be 3.
+    int currentBottomIndex =
+        _selectedIndex < 2 ? _selectedIndex : _selectedIndex + 1;
+
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       body: SafeArea(
         child: Stack(
           children: [
+            // Display the selected screen.
             _screens[_selectedIndex],
-            ChatBotIcon(), // Replace the existing chatbot icon with the new ChatBotIcon widget
+            // The chatbot icon overlays all screens.
+            ChatBotIcon(),
           ],
         ),
       ),
@@ -429,16 +433,12 @@ class _KitchenDashboardState extends State<KitchenDashboard> {
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.grey,
           type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
+          currentIndex: currentBottomIndex,
+          onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
               icon:
-                  _selectedIndex == 0
+                  currentBottomIndex == 0
                       ? const CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 24,
@@ -453,7 +453,7 @@ class _KitchenDashboardState extends State<KitchenDashboard> {
             ),
             BottomNavigationBarItem(
               icon:
-                  _selectedIndex == 1
+                  currentBottomIndex == 1
                       ? const CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 24,
@@ -463,23 +463,13 @@ class _KitchenDashboardState extends State<KitchenDashboard> {
               label: 'Maintenance',
             ),
             BottomNavigationBarItem(
-              icon:
-                  _selectedIndex == 2
-                      ? const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 24,
-                        child: Icon(
-                          Icons.storage,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                      )
-                      : const Icon(Icons.storage, size: 24),
-              label: 'Stock',
+              // For Menu we simply show the icon – tapping it navigates externally.
+              icon: const Icon(Icons.storage, size: 24),
+              label: 'Menu',
             ),
             BottomNavigationBarItem(
               icon:
-                  _selectedIndex == 3
+                  currentBottomIndex == 3
                       ? const CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 24,
@@ -504,6 +494,7 @@ class KitchenDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The dashboard content with a header, metrics, and schedule.
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -550,7 +541,7 @@ class KitchenDashboardScreen extends StatelessWidget {
               Expanded(
                 child: _buildMetricCard('Daily Meals', '03', Icons.restaurant),
               ),
-              const SizedBox(width: 16), // Add horizontal spacing
+              const SizedBox(width: 16),
               Expanded(
                 child: _buildMetricCard('Low Stocks', '20', Icons.people),
               ),
@@ -571,7 +562,7 @@ class KitchenDashboardScreen extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.add_circle_outline, color: Colors.white),
                 onPressed: () {
-                  // Handle add schedule
+                  // Handle add schedule action
                 },
               ),
             ],
@@ -585,13 +576,13 @@ class KitchenDashboardScreen extends StatelessWidget {
                   '10.00 A.M',
                   Icons.breakfast_dining,
                 ),
-                const SizedBox(height: 16), // Add vertical spacing
+                const SizedBox(height: 16),
                 _buildScheduleItemCard(
                   'Lunch',
                   '12.00 P.M',
                   Icons.lunch_dining,
                 ),
-                const SizedBox(height: 16), // Add vertical spacing
+                const SizedBox(height: 16),
                 _buildScheduleItemCard(
                   'Dinner',
                   '08.00 P.M',
@@ -688,20 +679,6 @@ class KitchenDashboardScreen extends StatelessWidget {
   }
 }
 
-class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Categories Screen',
-        style: TextStyle(color: Colors.white, fontSize: 24),
-      ),
-    );
-  }
-}
-
 class MaintenanceScreen extends StatelessWidget {
   const MaintenanceScreen({Key? key}) : super(key: key);
 
@@ -710,20 +687,6 @@ class MaintenanceScreen extends StatelessWidget {
     return Center(
       child: Text(
         'Maintenance Screen',
-        style: TextStyle(color: Colors.white, fontSize: 24),
-      ),
-    );
-  }
-}
-
-class StockScreen extends StatelessWidget {
-  const StockScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Stock Screen',
         style: TextStyle(color: Colors.white, fontSize: 24),
       ),
     );
